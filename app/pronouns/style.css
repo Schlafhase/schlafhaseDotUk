@@ -19,3 +19,8 @@ body {
 #smallText input {
     font-size: 40px;
 }
+
+.pronoun {
+    font-weight: bold;
+    color: yellow;
+}

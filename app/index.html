@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <title>schlafhase dot net</title>
+    </head>
+    <body>
+        <p id="hidden">this website looks terrible</p>
+        <div id="generalInfoDiv" class="movableDiv">
+          <div id="generalInfoDivRotatePoint" class="rotatePoint"></div>
+          <div id="generalInfoDivHeader" class="movableDivHeader">
+            <h1 class="title">About me</h1>
+          </div>
+          <p>Hello! I am Linus (or Schlafhase on the internet).<br/>I live in Germany and I like (creative) coding.</p>
+        </div>
+
+        <div id="contactsDiv" class="movableDiv">
+          <div id="contactsDivRotatePoint" class="rotatePoint"></div>
+          <div id="contactsDivHeader" class="movableDivHeader">
+            <h1 class="title">Contact</h1>
+          </div>
+          <p>discord: @schlafhase<br/>
+             email: <a href="#" class="cryptedmail"
+             data-name="schlafhase190"
+             data-domain="gmail"
+             data-tld="com"
+             onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;"></a><br/>
+             email2: <a href="#" class="cryptedmail"
+             data-name="linus.schneeberg"
+             data-domain="gmail"
+             data-tld="com"
+             onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;"></a><br/>
+             esolangs.org: <a href="https://esolangs.org/wiki/User:Schlafhase">User:Schlafhase</a><br/>
+             mastodon: <a href="https://mastodon.social/@Schlafhase">@Schlafhase</a><br/>
+             instagram: <a href="https://www.instagram.com/berdpond/">@berdpond</a><br/>
+             (the instagram username might be inspired by <a href="https://www.youtube.com/@TodePond">TodePond</a>)
+          </p>
+        </div>
+
+        <div id="myStuffDiv" class="movableDiv">
+          <div id="myStuffDivRotatePoint" class="rotatePoint"></div>
+          <div id="myStuffDivHeader" class="movableDivHeader">
+            <h1 class="title">My Stuff</h1>
+          </div>
+          <p>
+            <a href="https://esolangs.org/wiki/Ndim">Ndim (esoteric programming language)</a>
+            <a href="https://github.com/Schlafhase/Mandelbrot-fractal">Mandelbrot viewer</a><br/>
+            <a href="https://github.com/Schlafhase/img2cat">image to cat converter (no ui)</a><br/>
+            <a href="https://github.com/Schlafhase/img2minecraft">image to minecraft converter</a><br/>
+            <a href="https://github.com/Schlafhase">github</a><br/>
+            <a href="https://www.youtube.com/@schlafhase">youtube</a><br/>
+          </p>
+        </div>
+
+        <div id="workingOnDiv" class="movableDiv">
+          <div id="workingOnDivRotatePoint" class="rotatePoint"></div>
+          <div id="workingOnDivHeader" class="movableDivHeader">
+            <h1 class="title">What I'm working on</h1>
+          </div>
+          <p>
+            <ul>
+              <li>A basic messenger in C# using blazor.<br/></li>
+              <li>This website.<br/></li>
+            </ul>
+          </p>
+        </div>
+        <script src="draggableElements.js"></script>
+        <script src="rotatableElements.js"></script>
+    </body>
+</html>

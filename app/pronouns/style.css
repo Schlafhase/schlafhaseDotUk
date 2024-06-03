@@ -1,0 +1,21 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 50px;
+}
+
+#text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#pronounSelection {
+    font-size: 40px;
+}
+
+#smallText input {
+    font-size: 40px;
+}

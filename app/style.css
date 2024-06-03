@@ -1,0 +1,101 @@
+body {
+    background-color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body a {
+    color: aqua;
+}
+
+body a:hover {
+    color: chartreuse;
+}
+
+#hidden {
+    color: #030303;
+}
+
+#hidden:hover {
+    color:white;
+}
+
+.cryptedmail:after {
+    content: attr(data-name) "@" attr(data-domain) "." attr(data-tld); 
+}
+
+.movableDiv {
+    position: absolute;
+    z-index: 9;
+    border: 5px solid;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.rotatePoint {
+    height: 20px;
+    width: 20px;
+    cursor: grab;
+    float: right;
+    transform: translate(15px, -15px);
+    font-size: larger;
+}
+
+.movableDivHeader {
+    padding: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+    cursor: move;
+    text-align: center;
+    z-index: 10;
+}
+
+#generalInfoDivHeader {
+    background-color: #ff00b3;
+    background-image: linear-gradient(to bottom right, rgb(96, 61, 99), #c25454);
+    color: yellow;
+}
+
+#generalInfoDiv {
+    top: 20%;
+    left: 30%;
+    background-color: #1f1f1f;
+    background-image: linear-gradient(to bottom right, rgb(150, 197, 62), #8538b8);
+    color: white;
+}
+
+#myStuffDivHeader {
+    background-image: linear-gradient(to bottom right, rgb(66, 83, 175), #a73469);
+    color: rgb(43, 255, 0);
+}
+
+#myStuffDiv {
+    top: 32%;
+    left: 60%;
+    background-image: linear-gradient(to bottom right, rgb(219, 60, 219), #248669);
+    color: white;
+}
+
+#contactsDivHeader {
+    background-image: linear-gradient(to bottom right, rgb(52, 187, 52), #3996d4);
+    color: rgb(92, 0, 84);
+}
+
+#contactsDiv {
+    top: 60%;
+    left: 40%;
+    background-image: linear-gradient(to bottom right, rgb(4, 132, 141), #003a35);
+    color: white;
+}
+
+#workingOnDivHeader {
+    background-image: linear-gradient(to bottom right, rgb(217, 255, 0), #00c3ff);
+    color: rgb(158, 0, 132);
+}
+
+#workingOnDiv {
+    top: 50%;
+    left: 15%;
+    background-image: linear-gradient(to bottom right, rgb(153, 0, 26), #005068);
+    color: white;
+}

@@ -1,6 +1,7 @@
 body {
     background-color: black;
     font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
 }
 
 body a {
@@ -29,6 +30,7 @@ body a:hover {
     border: 5px solid;
     border-radius: 20px;
     padding: 10px;
+    text-wrap: nowrap;
 }
 
 .rotatePoint {
@@ -82,7 +84,7 @@ body a:hover {
 }
 
 #contactsDiv {
-    top: 60%;
+    top: 65%;
     left: 40%;
     background-image: linear-gradient(to bottom right, rgb(4, 132, 141), #003a35);
     color: white;
@@ -98,4 +100,15 @@ body a:hover {
     left: 15%;
     background-image: linear-gradient(to bottom right, rgb(153, 0, 26), #005068);
     color: white;
+}
+
+#ideasDiv {
+    background-image: linear-gradient(to bottom right, rgb(145, 116, 62), rgb(133, 88, 6));
+    color: white;
+    top: 60%;
+    left: 70%
+}
+
+#ideasDivHeader {
+    background-image: linear-gradient(to bottom right, rgb(119, 119, 255), rgb(24, 150, 123));
 }

@@ -1,84 +1,101 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="styles.css">
         <title>schlafhase dot uk</title>
     </head>
     <body>
-        <p id="hidden">this website looks terrible</p>
-        <div id="generalInfoDiv" class="movableDiv">
-          <div id="generalInfoDivRotatePoint" class="rotatePoint"></div>
-          <div id="generalInfoDivHeader" class="movableDivHeader">
-            <h1 class="title">About me</h1>
-          </div>
-          <p>Hello! I am Linus (or Schlafhase on the internet).<br/>I live in Germany and I like (creative) coding.</p>
-        </div>
+        <header>
+            <canvas id="headerBanner"></canvas>
+            <div id="title">
+                <h1>Schlafhase</h1>
+                <h2>Linus Schneeberg</h2>
+            </div>
+        </header>
+        <div id="transition"></div>
+        <div id="content">
+            <div class="contentSection" id="aboutMe">
+                <div class="contentSectionHeader">About me</div>
+                <div class="grid">
+                    <p>
+                        I am a German highschool student and a creative coder in my free time. I used to write my code in Python but I am using C# now.
+                    </p>
+                    <p>
+                        My favourite artist is <a href="https://mastodon.social/@TodePond@mas.to">Lu or Luke (either is fine) Wilson</a> and I really enjoy watching Lu or Luke's (either is fine) <a href="https://www.youtube.com/playlist?list=PL9uRa69RF-7wastqKWXT4d9F84BAzfVd4">SandPond Saga</a>.
+                    </p>
+                </div>
+            </div>
 
-        <div id="contactsDiv" class="movableDiv">
-          <div id="contactsDivRotatePoint" class="rotatePoint"></div>
-          <div id="contactsDivHeader" class="movableDivHeader">
-            <h1 class="title">Contact</h1>
-          </div>
-          <p>discord: @schlafhase<br/>
-             email: <a href="#" class="cryptedmail"
-             data-name="schlafhase190"
-             data-domain="gmail"
-             data-tld="com"
-             onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;"></a><br/>
-             email2: <a href="#" class="cryptedmail"
-             data-name="linus.schneeberg"
-             data-domain="gmail"
-             data-tld="com"
-             onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;"></a><br/>
-             esolangs.org: <a href="https://esolangs.org/wiki/User:Schlafhase">User:Schlafhase</a><br/>
-             mastodon: <a href="https://mastodon.social/@Schlafhase">@Schlafhase</a><br/>
-             instagram: <a href="https://www.instagram.com/berdpond/">@berdpond</a><br/>
-             (the instagram username might be inspired by <a href="https://www.youtube.com/@TodePond">TodePond</a>)
-          </p>
-        </div>
+            <div class="contentSection" id="myStuff">
+                <div class="contentSectionHeader">My stuff</div>
+                <div class="grid">
+                    <p>
+                        <a class="label" href="https://cactusmessenger.azurewebsites.net">Cactus Messenger</a><br>
+                        A messenger I made using <a href="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor">Blazor</a>.
+                    </p>
+                    <p>
+                        <a class="label" href="https://esolangs.org/wiki/ndim">Ndim</a><br>
+                        An n-dimensional esoteric programming language.
+                    </p>
+                    <p>
+                        <a class="label" href="https://github.com/Schlafhase/Mandelbrot-fractal">Mandelbrot</a><br>
+                        A program to explore the Mandelbrot set.
+                    </p>
+                    <p>
+                        <a class="label" href="https://github.com/Schlafhase/brainfck-cs">Brainfuck</a><br>
+                        A Brainfuck interpreter written in C#. This was my first C# Project.
+                    </p>
+                    <p>
+                        <a class="label" href="https://github.com/Schlafhase/img2cat">Image to cat</a><br>
+                        A python script that converts images into larger images made out of little cat images.
+                    </p>
+                    <p>
+                        <a class="label" href="https://github.com/Schlafhase/img2minecraft">Image to Minecraft</a><br>
+                        A python script that converts images into images built out of Minecraft blocks. It also outputs a Minecraft datapack with a command to build the image.
+                    </p>
+                </div>
+            </div>
 
-        <div id="myStuffDiv" class="movableDiv">
-          <div id="myStuffDivRotatePoint" class="rotatePoint"></div>
-          <div id="myStuffDivHeader" class="movableDivHeader">
-            <h1 class="title">My Stuff</h1>
-          </div>
-          <p>
-            <a href="https://cactusmessenger.azurewebsites.net">Cactus Messenger</a><br/>
-            <a href="https://esolangs.org/wiki/Ndim">Ndim (esoteric programming language)</a><br/>
-            <a href="https://github.com/Schlafhase/Mandelbrot-fractal">Mandelbrot viewer</a><br/>
-            <a href="https://github.com/Schlafhase/img2cat">image to cat converter (no ui)</a><br/>
-            <a href="https://github.com/Schlafhase/img2minecraft">image to minecraft converter</a><br/>
-            <a href="https://github.com/Schlafhase">github</a><br/>
-            <a href="https://www.youtube.com/@schlafhase">youtube</a><br/>
-          </p>
+            <div class="contentSection" id="Contact">
+                <div class="contentSectionHeader">Contact</div>
+                <div class="grid">
+                    <p>
+                        <span class="label">Email</span><br>
+                        <a href="#" class="cryptedmail"
+                            data-name="schlafhase190"
+                            data-domain="gmail"
+                            data-tld="com"
+                            onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;"></a>
+                    </p>
+                    <p>
+                        <span class="label">2nd Email</span><br>
+                        <a href="#" class="cryptedmail"
+                            data-name="linus.schneeberg"
+                            data-domain="gmail"
+                            data-tld="com"
+                            onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;"></a>
+                    </p>
+                    <p>
+                        <span class="label">mastodon</span><br>
+                        <a href="https://mastodon.social/@Schlafhase">@Schlafhase</a>
+                    </p>
+                    <p>
+                        <span class="label">Instagram</span><br>
+                        <a href="https://www.instagram.com/berdpond/">@berdpond</a> <span style="opacity: 0.1;font-size: 10px;">(This username is probably inspired by <a href="https://www.youtube.com/@TodePond">TodePond</a>)</span>
+                    </p>
+                    <p>
+                        <span class="label">Esolangs</span><br>
+                        <a href="https://esolangs.org/wiki/User:Schlafhase">User:Schlafhase</a>
+                    </p>
+                    <p>
+                        <span class="label">Discord</span><br>
+                        <a style="text-decoration: underline;cursor: pointer;" onclick="navigator.clipboard.writeText('schlafhase');alert('Copied username to clipboard!');">@schlafhase</a>
+                    </p>
+                </div>
+            </div>
         </div>
-
-        <div id="workingOnDiv" class="movableDiv">
-          <div id="workingOnDivRotatePoint" class="rotatePoint"></div>
-          <div id="workingOnDivHeader" class="movableDivHeader">
-            <h1 class="title">What I'm working on</h1>
-          </div>
-          <p>
-            <ul>
-              <li>Cactus Messenger</li>
-            </ul>
-          </p>
-        </div>
-        <div id="ideasDiv" class="movableDiv">
-          <div id="ideasDivRotatePoint" class="rotatePoint"></div>
-          <div id="ideasDivHeader" class="movableDivHeader">
-            <h1 class="title">Running out of ideas</h1>
-          </div>
-          <p>
-            As I already said, I really like coding and I love to gather more<br/>
-            experience. 
-            But sometimes I run out of ideas.<br/><br/>
-            <span style="font-weight: bold;">How can you help?</span><br/>
-            If you have any ideas or even need something I could program,<br/>
-            feel free to send them to my email adress (or another platform).<br/>
-          </p>
-        </div>
-        <script src="draggableElements.js"></script>
-        <script src="rotatableElements.js"></script>
+        <script src="canvas_library/Circle.js"></script>
+        <script src="canvas_library/Rectangle.js"></script>
+        <script src="banner.js"></script>
     </body>
 </html>

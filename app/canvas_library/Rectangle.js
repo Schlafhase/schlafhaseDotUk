@@ -2,7 +2,8 @@
 // I stopped updating it, because I realised that I don't need this.
 
 class Rectangle {
-    constructor(x, y, width, height, color, alpha,  xVel = 0, yVel = 0, rotVel = 0) {
+    static velMultiplier = 1;
+    constructor(x, y, width, height, color, alpha,  xVel = 0, yVel = 0) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -12,30 +13,36 @@ class Rectangle {
         this.angle = 0;
         this.xVel = xVel;
         this.yVel = yVel;
-        this.rotVel = rotVel;
     }
 
-    render(canvas, loop=true) {
+    render(canvas, loop=true, glow=false) {
         var ctx = canvas.getContext("2d");
+        if (glow) {
+            ctx.shadowBlur = 50;
+            ctx.shadowColor = this.color;
+        }
         ctx.globalAlpha = this.alpha;
         ctx.fillStyle = this.color;
-        ctx.translate(this.x+this.width/2, this.y+this.height/2 );
-        ctx.rotate(this.angle * Math.PI / 180)
-        ctx.fillRect(-(this.width/2), -(this.height/2), this.width, this.height)
+        ctx.fillRect(this.x, this.y, this.width, this.height);
         if (loop) {
-            if (this.x - Math.min(this.width, this.height) > canvas.width) {
-                this.x = -Math.max(this.width, this.height);
+            if (this.x - this.width - 50 > canvas.width) {
+                this.x = -this.width
             }
-            if (this.x + Math.min(this.width, this.height) < 0) {
-                this.x = canvas.width + Math.max(this.width, this.height);
+            if (this.x + this.width + 50 < 0) {
+                this.x = canvas.width + this.width;
             }
-            if (this.y > canvas.height) {
-                this.y = -Math.max(this.width, this.height);
+            if (this.y - 50> canvas.height) {
+                this.y = -this.height - 50;
             }
-            if (this.y < 0) {
-                this.y = canvas.height - Math.max(this.width, this.height);
+            if (this.y + this.height + 50 < 0) {
+                this.y = canvas.height + 50;
             }
         }
+    }
+
+    setPos (x, y) {
+        this.x = x;
+        this.y = y;
     }
 
     move (x, y) {
@@ -48,8 +55,21 @@ class Rectangle {
     }
 
     applyVelocity() {
-        this.x += this.xVel;
-        this.y += this.yVel;
-        this.angle += this.rotVel
+        this.x += this.xVel * Rectangle.velMultiplier;
+        this.y += this.yVel * Rectangle.velMultiplier;
+        this.angle += this.rotVel;
+    }
+
+    static setVelMultiplier(newVelMultiplier) {
+        Rectangle.velMultiplier = newVelMultiplier;
+    }
+
+    static updateVelMultiplier() {
+        if (Rectangle.velMultiplier > 1) {
+            Rectangle.velMultiplier = Rectangle.velMultiplier * 0.95;
+        }
+        else if (Rectangle.velMultiplier != 1) {
+            Rectangle.velMultiplier = 1;
+        }
     }
 }

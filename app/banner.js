@@ -1,5 +1,7 @@
 var banner = document.getElementById("headerBanner");
 var title = document.getElementById("title");
+banner.width = parseInt(banner.offsetWidth);
+banner.height = parseInt(banner.offsetHeight);
 
 var colors = ["green", "yellow", "magenta", "pink", "red", "orange", "blue", "lightblue", "lime"]
 var rects = [];
@@ -8,7 +10,7 @@ for (var i = 0; i<50;i++) {
 }
 
 
- setInterval(updateCanvas, 30);
+setInterval(updateCanvas, 30);
 document.addEventListener("scroll", scrollEventHandler)
 
 function updateCanvas() {

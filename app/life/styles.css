@@ -7,6 +7,13 @@
     scrollbar-color: rgb(51, 51, 51) rgb(24, 24, 24);
 }
 
+#categoryLink {
+    padding-top: 20px;
+    opacity: 0.5;
+    margin: 0 auto;
+    max-width: 70vw;
+    text-wrap: balance;
+}
 
 header {
     width: 100%;
@@ -23,29 +30,21 @@ header canvas {
     box-shadow: none;
 }
 
-@media (max-width: 555px) {
-    header h1 {
-        font-size: 5rem;
-    }
-    header h2 {
-        font-size: 1.5rem;
-        transform: translate(-50%, -120%);
-    }
-
+@media (max-width: 800px) {
     .datePicker {
         display: none;
     }
 }
 
-@media (min-width: 555px) {
-    header h1 {
-        font-size: 8rem;
-    }
-    header h2 {
-        font-size: 2rem;
-        transform: translate(-50%, -100%);
-    }
+header h1 {
+    font-size: 8rem;
 }
+
+header h2 {
+    font-size: 2rem;
+    transform: translate(-50%, -100%);
+}
+
 
 header h1, h2 {
     white-space: nowrap;
@@ -160,7 +159,7 @@ body {
     margin: 20px;
     overflow-y: scroll;
     padding-right: 10px;
-    max-height: calc(100vh - 32.5rem);
+    height: calc(100vh - 32.5rem);
     scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.3);
 }
 

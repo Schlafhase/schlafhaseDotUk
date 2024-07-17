@@ -1,6 +1,3 @@
-// This code is outdated.
-// I stopped updating it, because I realised that I don't need this.
-
 class Rectangle {
     static velMultiplier = 1;
     constructor(x, y, width, height, color, alpha,  xVel = 0, yVel = 0) {
@@ -13,6 +10,7 @@ class Rectangle {
         this.angle = 0;
         this.xVel = xVel;
         this.yVel = yVel;
+        this.class = Rectangle;
     }
 
     render(canvas, loop=true, glow=false) {
@@ -55,8 +53,8 @@ class Rectangle {
     }
 
     applyVelocity() {
-        this.x += this.xVel * Rectangle.velMultiplier;
-        this.y += this.yVel * Rectangle.velMultiplier;
+        this.x += this.xVel * this.class.velMultiplier;
+        this.y += this.yVel * this.class.velMultiplier;
         this.angle += this.rotVel;
     }
 

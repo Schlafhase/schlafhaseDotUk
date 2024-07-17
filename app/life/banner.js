@@ -4,7 +4,7 @@ var title = document.getElementById("title");
 var colors = ["green", "yellow", "magenta", "red", "orange", "blue", "lightblue", "lime"];
 var rects = [];
 for (var i = 0; i<100;i++) {
-    rects.push(new Rectangle(Math.random() * banner.offsetWidth, Math.random() * banner.offsetHeight, Math.random()*100 + 100, Math.random() * 500 + 500, colors[Math.round(Math.random()*colors.length)], Math.random + 0.8, 0, Math.random() * 2 - 1, 0));
+    rects.push(new Rectangle(Math.random() * banner.offsetWidth, Math.random() * banner.offsetHeight - 200, Math.random()*100 + 100, Math.random() * 500 + 500, colors[Math.round(Math.random()*colors.length)], Math.random + 0.8, 0, Math.random() * 2 - 1, 0));
 }
 
 

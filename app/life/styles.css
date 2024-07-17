@@ -31,6 +31,10 @@ header canvas {
         font-size: 1.5rem;
         transform: translate(-50%, -120%);
     }
+
+    .datePicker {
+        display: none;
+    }
 }
 
 @media (min-width: 555px) {
@@ -84,6 +88,7 @@ body {
 #content {
     font-size: 20px;
     width: 100%;
+    min-height: calc(100vh - 31rem);
     background-color: rgba(0, 0, 0, 0.85);
     color: white;
     transform: translate(0, 30rem);
@@ -101,6 +106,7 @@ body {
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
+    padding: 20px;
 }
 
 #content .blogUrlDiv:hover {
@@ -112,16 +118,66 @@ body {
 }
 
 .contentSection {
-    padding: 100px;
+    padding: 30px;
     margin: 0 auto;
-    max-width: var(--maxLineLength);
+    max-width: 70vw;
     text-wrap: balance;
 }
 
-.contentSectionHeader {
+.blogImage {
+    width: 128px;
+    height: 128px;
+    border-radius: 10px;
+    float: right;
+    margin-right: 2px;
+    margin-top: 2px;
+}
+
+.dateHeader {
+    padding: 0;
     font-size: 50px;
+    margin: 0 auto;
+    max-width: var(--maxLineLength);
+    text-wrap: balance;
+    text-align: center;
+}
+
+.date {
+    font-size: 15px;
+    opacity: 0.7;
+}
+
+.contentSectionHeader {
+    font-size: 40px;
     font-weight: 50;
-    padding-bottom: 30px;
+    padding-bottom: 13px;
+    padding-right: 20px;
+    border-bottom: 2px solid gray;
+}
+
+.datePicker {
+    position: absolute;
+    margin: 20px;
+    overflow-y: scroll;
+    padding-right: 10px;
+    max-height: calc(100vh - 32.5rem);
+    scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.3);
+}
+
+.dateLink {
+    font-size: 30px;
+}
+
+.meta {
+    display: inline-block;
+    border-right: 2px solid gray;
+    width: calc(100% - 150px);
+}
+
+.description {
+    padding-top: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .grid {
@@ -132,7 +188,7 @@ body {
 
 .label {
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
 }
 

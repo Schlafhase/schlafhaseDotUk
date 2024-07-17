@@ -84,6 +84,7 @@ body {
 #content {
     font-size: 20px;
     width: 100%;
+    min-height: calc(100vh - 31rem);
     background-color: rgba(0, 0, 0, 0.85);
     color: white;
     transform: translate(0, 30rem);

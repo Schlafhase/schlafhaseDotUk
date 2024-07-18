@@ -10,13 +10,14 @@ class Post {
 
     toHtml(type = "default", lineNumber = 0) {
         if (type.toLowerCase() == "code") {
-            return `<a href="${this.href}"><span class="transparent">\n${lineNumber} &ltdiv class="blogUrlDiv"&gt\n${lineNumber + 1}     &lta href="${this.href}" class="blogUrl"&gt\n${lineNumber + 2}         &ltdiv class="meta"&gt\n${lineNumber + 3}             &ltspan class="date"&gt\n${lineNumber + 4}               </span>${this.date.getDate()}th ${monthToString(this.date.getMonth())}<span class="transparent">\n${lineNumber + 5}             &lt/span&gt\n${lineNumber + 6}             &ltdiv class="contentSectionHeader"&gt\n${lineNumber + 7}               </span>${this.title}<span class="transparent">\n${lineNumber + 8}             &lt/div&gt\n${lineNumber + 9}             &ltspan class="categories"&gt\n${lineNumber + 10}               </span>${tryJoin(this.categories).toUpperCase()}<span class="transparent">\n${lineNumber + 11}             &lt/span&gt\n${lineNumber + 12}             &ltp class="description"&gt\n${lineNumber + 13}               </span>${this.description}<span class="transparent">\n${lineNumber + 14}             &lt/p&gt\n${lineNumber + 15}         &lt/div&gt\n${lineNumber + 16}         &ltimg class="blogImage" src="${this.imgUrl}"&gt\n${lineNumber + 17}     &lt/a&gt\n${lineNumber + 18} &lt/div&gt</span></a>`;
+            return `<a href="${this.href}"><span class="transparent typed" data-content='\n${alignLineNumberRight(lineNumber)} <div class="blogUrlDiv">\n${alignLineNumberRight(lineNumber + 1)}     <a href="${this.href}" class="blogUrl">\n${alignLineNumberRight(lineNumber + 2)}         <div class="meta">\n${alignLineNumberRight(lineNumber + 3)}             <span class="date">\n${alignLineNumberRight(lineNumber + 4)}               '></span><span class="typed" data-content='${this.date.getDate()}th ${monthToString(this.date.getMonth())}'></span><span class="transparent typed" data-content='\n${alignLineNumberRight(lineNumber + 5)}             </span>\n${alignLineNumberRight(lineNumber + 6)}             <div class="contentSectionHeader">\n${alignLineNumberRight(lineNumber + 7)}               '></span><span class="typed" data-content='${this.title}'></span><span class="transparent typed" data-content='\n${alignLineNumberRight(lineNumber + 8)}             </div>\n${alignLineNumberRight(lineNumber + 9)}             <span class="categories">\n${alignLineNumberRight(lineNumber + 10)}               '></span><span class="typed" data-content='${tryJoin(this.categories).toUpperCase()}'></span><span class="transparent typed" data-content='\n${alignLineNumberRight(lineNumber + 11)}             </span>\n${alignLineNumberRight(lineNumber + 12)}             <p class="description">\n${alignLineNumberRight(lineNumber + 13)}               '></span><span class="typed" data-content='${this.description}'></span><span class="transparent typed" data-content='\n${alignLineNumberRight(lineNumber + 14)}             </p>\n${alignLineNumberRight(lineNumber + 15)}         </div>\n${alignLineNumberRight(lineNumber + 16)}         <img class="blogImage" src="${this.imgUrl}">\n${alignLineNumberRight(lineNumber + 17)}     </a>\n${alignLineNumberRight(lineNumber + 18)} </div>\n${alignLineNumberRight(lineNumber + 19)} '></span></a>`;
         }
         return `<div class="contentSection"><div class="blogUrlDiv"><a href="${this.href}" class="blogUrl"><div class="meta"><span class="date">${this.date.getDate()}th ${monthToString(this.date.getMonth())}</span><div class="contentSectionHeader">${this.title}</div><span class="label">${tryJoin(this.categories)}</span><p class="description">${this.description}</p></div><img class="blogImage" src="${this.imgUrl}"></a></div></div>`;
     }
 }
 
 var posts = [
+    new Post("2024-07-18", "Gavity", "Playing around with simulated gravity in the html canvas.", ["Code"], "gravity", "images/gravity.png"),
     new Post("2024-07-18", "Gavity", "Playing around with simulated gravity in the html canvas.", ["Code"], "gravity", "images/gravity.png")
 ];
 
@@ -32,4 +33,12 @@ function tryJoin(arr) {
     catch {
         return "";
     }
+}
+
+function alignLineNumberRight(line) {
+    var spaceAmount = parseInt(Math.log10(line)) * -1 + 3;
+    if (spaceAmount < 0) {
+        spaceAmount = 0;
+    }
+    return " ".repeat(spaceAmount) + line;
 }

@@ -1,17 +1,24 @@
-// var blogPostMetas = fs.readdirSync('/blog_post_meta/');
-var blogPosts = [];
+var postDiv = document.getElementById("posts");
+var datePicker = document.getElementById("datePicker");
+posts = posts.sort(function(a, b) {return Date.parse(b.date) - Date.parse(a.date)});
+var currentYear = posts[0].date.getYear();
+postDiv.innerHTML += getDateHeader(currentYear + 1900);
+datePicker.innerHTML += getDateLink(currentYear + 1900);
 
-// for (var i = 0; i<blogPostMetas.length; i++) {
-//     var blogPostMeta = undefined;
-//     fetch('blog_post_meta/${blogPostMetas[i]}')
-//         .then((res) => res.text())
-//         .then((text) => blogPostMeta = JSON.parse(text))
-//         .catch((e) => console.error(e));
-//     blogPosts.push();
-// }
-fetch('../blog_post_meta/gravity.json')
-        .then((res) => res.text())
-        .then((text) => blogPosts.push(JSON.parse(text)))
-        .catch((e) => console.error(e));
+for (var i = 0; i<posts.length; i++) {
+    var post = posts[i];
+    if (post.date.getYear() != currentYear) {
+        var currentYear = post.date.getYear();
+        postDiv.innerHTML += getDateHeader(currentYear + 1900);
+        datePicker.innerHTML += getDateLink(currentYear + 1900);
+    }
+    postDiv.innerHTML += post.toHtml();
+}
 
-//alert(blogPosts);
+function getDateHeader(year) {
+    return `<div class="dateHeader" id="${year}">${year}</div>`;
+}
+
+function getDateLink(year) {
+    return `<a class="dateLink" href="life#${year}">${year}</a><br>`
+}

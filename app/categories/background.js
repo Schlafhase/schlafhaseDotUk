@@ -43,7 +43,7 @@ function updateCanvas() {
         var modifiedLineRadius = lineRadius;
         var point = points[i];
         if (i == 0) {
-            modifiedGravityStrength = gravityStrength * 100;
+            modifiedGravityStrength = gravityStrength * 50;
             modifiedLineRadius = lineRadius * 2;
         }
         var closePoints = points.filter((p) => calculateDistance(point.x, point.y, p.x, p.y) < gravityRadius);

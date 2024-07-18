@@ -154,12 +154,10 @@ body {
     border-bottom: 2px solid gray;
 }
 
-.datePicker {
+#datePicker {
     position: absolute;
     margin: 20px;
-    overflow-y: scroll;
     padding-right: 10px;
-    height: calc(100vh - 32.5rem);
     scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.3);
 }
 

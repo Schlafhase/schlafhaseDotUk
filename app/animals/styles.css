@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+}
+
+img {
+    width: 100%;
+}
+
+h1 {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    font-size: 1200%;
+}
+
+:root {
+    --maxLineLength: 56rem;
+    font-family: "sofia pro light", ui-sans-serif, system-ui, sans-serif;
+    color: white
+}

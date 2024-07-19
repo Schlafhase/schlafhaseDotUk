@@ -96,3 +96,11 @@ function applyGravity(p1, p2, radius, amount) {
     p2.xVel += xGrav;
     p2.yVel += yGrav;
 }
+
+var blinks = document.getElementsByClassName('blink');
+            setInterval(function() {
+                for (var i = 0; i<blinks.length; i++) {
+                    var blink = blinks[i];
+                    blink.style.opacity = (blink.style.opacity == 0 ? 0.5 : 0);
+                }
+            }, 700);

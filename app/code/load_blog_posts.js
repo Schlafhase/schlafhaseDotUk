@@ -2,7 +2,7 @@ var postDiv = document.getElementById("content");
 var userContent = document.getElementById("userContent");
 var cursorEl = document.getElementById("cursor");
 posts = posts.sort(function(a, b) {return Date.parse(b.date) - Date.parse(a.date)});
-posts = posts.filter((p) => p.categories.includes("Code"))
+posts = posts.filter((p) => {try {return p.categories.includes("Code")} catch {return false;}});
 var lineNumber = 3;
 var userTextLineNumber = lineNumber + (19*posts.length) + 1;
 var char = 0;
@@ -10,7 +10,7 @@ var typedElement = 0;
 var typedElements = document.getElementsByClassName("typed");
 var cursor = " ";
 
-var text = '<span class="transparent">\n   1 &lt!-- </span>Code<span class="transparent">--&gt\n   2</span>';
+var text = '<span class="transparent">\n   1 &lt!-- </span>Category: Code<span class="transparent">--&gt\n   2</span>';
 postDiv.innerHTML += text;
 
 for (var i = 0; i<posts.length; i++) {
@@ -52,8 +52,11 @@ function cursorAnimation() {
 }
 
 function keyboardEventHandler(event) {
-    if (event.key == "Backspace") {
-        userContent.innerHTML = userContent.innerHTML.replace(/(\s+)?.$/, '');;
+    if (event.key == "Backspace" && event.ctrlKey) {
+        userContent.innerHTML = userContent.innerHTML.replace(/(\S|&lt;|&gt;|\n)+$/, '');
+    }
+    else if (event.key == "Backspace") {
+        userContent.innerHTML = userContent.innerHTML.replace(/(.|&lt;|&gt;|\n)$/, '');
     }
     else if (event.key == "Enter") {
         userContent.innerHTML += `\n${alignLineNumberRight(userTextLineNumber)} `;

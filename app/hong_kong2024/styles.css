@@ -35,9 +35,15 @@ body {
     z-index: -1;
 }
 
-h1, h2 {
+/* h1, h2 {
     position: absolute;
     transform: translate(-50%, -50%);
+} */
+
+#content {
+    text-align: center;
+    margin: 0 auto;
+    width: 70vw;
 }
 
 #header {
@@ -46,21 +52,17 @@ h1, h2 {
     font-size: 100px;
     font-weight: bolder;
     text-wrap: nowrap;
-    top: 20%;
-    left: 50%;
 }
 
 #label {
     font-size: 67px;
     text-wrap: nowrap;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -130%);
+    margin-top: 150px;
+    margin-bottom: 0;
 }
 
 #countdown {
+    margin-top: 0;
     font-weight: normal;
     font-size: 100px;
-    top: 60%;
-    left: 50%;
 }

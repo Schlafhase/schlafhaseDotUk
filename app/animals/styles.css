@@ -1,16 +1,39 @@
 body {
     margin: 0;
+    min-height: 100vh;
 }
 
-img {
+#banner {
+    height: calc(0.3*100vw);
+}
+
+#banner img {
+    position: absolute;
+}
+
+#bg {
     width: 100%;
+    z-index: -1;
+}
+
+#pfote, #linus {
+    height: calc(0.3*100vw);
+    left: 0px;
+    z-index: 2;
+}
+
+#shadow {
+    z-index: 0;
+    height: calc(0.3*100vw);
 }
 
 h1 {
     position: absolute;
-    left: 10%;
-    top: 10%;
-    font-size: 1200%;
+    margin: 0;
+    left: 12cqw;
+    top: 5cqw;
+    text-align: center;
+    font-size: 15cqw;
 }
 
 :root {

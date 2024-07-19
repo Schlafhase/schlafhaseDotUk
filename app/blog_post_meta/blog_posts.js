@@ -17,7 +17,7 @@ class Post {
 }
 
 var posts = [
-    new Post("2024-07-18", "Gravity", "Playing around with simulated gravity in the html canvas.", ["Code"], "gravity", "images/gravity.png"),
+    new Post("2024-07-18Z", "Gravity", "Playing around with simulated gravity in the html canvas.", ["Code"], "gravity", "images/gravity.png"),
     new Post()
 ];
 

@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+}
+
+/* @media (max-width: 1334px) {
+    #bg {
+        height: 100cqh;
+        top: 0;
+    }
+}
+
+@media (max-width: 888px) {
+    #bg {
+        height: 100%;
+        top: 0;
+        right: -50vw;
+    }
+}
+
+@media (min-width: 1334px) {
+    #bg {
+        width: 150cqw;
+        bottom: -10vh;
+        left: -50vw;
+    }
+}
+
+#bg {
+    position: absolute;
+    opacity: 0.3;
+} */

@@ -53,10 +53,10 @@ function cursorAnimation() {
 
 function keyboardEventHandler(event) {
     if (event.key == "Backspace" && event.ctrlKey) {
-        userContent.innerHTML = userContent.innerHTML.replace(/(\S|&lt;|&gt;|\n)+$/, '');
+        userContent.innerHTML = userContent.innerHTML.replace(/(\s+|(\S|&lt;|&gt;|\n)+)$/, '');
     }
     else if (event.key == "Backspace") {
-        userContent.innerHTML = userContent.innerHTML.replace(/(.|&lt;|&gt;|\n)$/, '');
+        userContent.innerHTML = userContent.innerHTML.replace(/(\n\s*\d+\s|(.|&lt;|&gt;))$/, '');
     }
     else if (event.key == "Enter") {
         userContent.innerHTML += `\n${alignLineNumberRight(userTextLineNumber)} `;

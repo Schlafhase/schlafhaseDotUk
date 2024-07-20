@@ -1,6 +1,6 @@
-var depatureTime = new Date("2024-08-04 19:10");
+var depatureTime = new Date(Date.UTC(2024, 7, 4, 17, 10));
 // depatureTime = new Date("2024-07-20 14:00");
-var arrivalTime = new Date("2024-08-05 11:05");
+var arrivalTime = new Date(Date.UTC(2024, 7, 5, 9, 5));
 var countdown = document.getElementById("countdown");
 var background = document.getElementById("bg");
 

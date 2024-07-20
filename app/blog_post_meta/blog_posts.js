@@ -1,5 +1,7 @@
 class Post {
     constructor(date, title, description, categories, href, imgUrl) {
+        var arr = date.split(/[- :]/);
+        this.date = new Date(Date.UTC(arr[0], arr[1]-1, arr[2], arr[3]));
         this.date = new Date(date);
         this.title = title;
         this.description = description;

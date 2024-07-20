@@ -1,7 +1,10 @@
 class Post {
     constructor(date, title, description, categories, href, imgUrl) {
-        var arr = date.split(/[- :]/);
-        this.date = new Date(Date.UTC(arr[0], arr[1]-1, arr[2], arr[3]));
+        try {
+            var arr = date.split(/[- :]/);
+            this.date = new Date(Date.UTC(arr[0], arr[1]-1, arr[2], arr[3]));
+        }
+        catch {}
         this.date = new Date(date);
         this.title = title;
         this.description = description;
@@ -20,6 +23,7 @@ class Post {
 
 var posts = [
     new Post("2024-07-18", "Gravity", "Playing around with simulated gravity in the html canvas.", ["Code"], "gravity", "images/gravity.png"),
+    new Post("2024-08-04", "Hong Kong 2024", "I am going to Hong Kong again!", ["Travel"], "hong_kong2024", "images/hk.png")
 ];
 
 function monthToString(month) {

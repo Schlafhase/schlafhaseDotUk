@@ -4,7 +4,7 @@ var cursorEl = document.getElementById("cursor");
 posts = posts.sort(function(a, b) {return Date.parse(b.date) - Date.parse(a.date)});
 posts = posts.filter((p) => {try {return p.categories.includes("Code")} catch {return false;}});
 var lineNumber = 3;
-var userTextLineNumber = lineNumber + (19*posts.length) + 1;
+var userTextLineNumber = lineNumber + (20*posts.length);
 var char = 0;
 var typedElement = 0;
 var typedElements = document.getElementsByClassName("typed");
@@ -16,7 +16,7 @@ postDiv.innerHTML += text;
 for (var i = 0; i<posts.length; i++) {
     var post = posts[i];
     postDiv.innerHTML += post.toHtml("code", lineNumber);
-    lineNumber += 19;
+    lineNumber += 20;
 }
 
 const interval = setInterval(writeNextChar, 1);

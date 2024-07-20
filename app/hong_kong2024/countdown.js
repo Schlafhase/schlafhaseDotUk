@@ -1,9 +1,11 @@
-var depatureTime = new Date("2024-07-20 01:57");
-var arrivalTime = new Date("2024-07-20 02:00");
+var depatureTime = new Date("2024-08-04 19:10");
+// depatureTime = new Date("2024-07-20 14:00");
+var arrivalTime = new Date("2024-08-05 11:05");
 var countdown = document.getElementById("countdown");
 var background = document.getElementById("bg");
 
 const countDownInterval = setInterval(updateCountdown, 10);
+var timeLineInterval = undefined;
 fitBg();
 window.addEventListener("resize", fitBg);
 
@@ -15,20 +17,26 @@ function updateCountdown() {
     var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((difference % (1000 * 60)) / 1000);
     var milliseconds = Math.floor(difference % (1000));
-    countdown.innerHTML = `${days}:${expandNumber(hours, 2)}:${expandNumber(minutes, 2)}:${expandNumber(seconds, 2)}:${expandNumber(milliseconds, 3)}`;
+    countdown.innerHTML = `${expandNumber(days, 2)}:${expandNumber(hours, 2)}:${expandNumber(minutes, 2)}:${expandNumber(seconds, 2)}:${expandNumber(milliseconds, 3)}`;
     if (difference < 0) {
         clearInterval(countDownInterval);
         document.getElementById("label").style.display = "none";
         document.getElementById("countdown").style.display = "none";
         document.getElementById("timeDescription").style.display = "none";
         document.getElementById("flightTimeLine").style.display = "inline";
-        setInterval(updateFlightTimeLine, 10);
+        timeLineInterval = setInterval(updateFlightTimeLine, 10);
     }
 }
 
 function updateFlightTimeLine() {
     var percentage = 1 - (arrivalTime.getTime() - new Date().getTime())/(arrivalTime.getTime() - depatureTime.getTime())
-    document.getElementById("plane").setAttribute("x", (percentage*130)+30 + "px");
+    if (percentage > 1) {
+        percentage = 1;
+        document.getElementById("arrival").style.display = "block";
+        clearInterval(timeLineInterval);
+    }
+    console.log(percentage);
+    document.getElementById("plane").setAttribute("x", (percentage*131.5)+28.5 + "px");
 }
 
 function expandNumber(num, digits) {

@@ -1,9 +1,9 @@
-var depatureTime = new Date("2024-08-04");
-var arrivalTime = new Date("2024-08-04");
+var depatureTime = new Date("2024-07-20 01:57");
+var arrivalTime = new Date("2024-07-20 02:00");
 var countdown = document.getElementById("countdown");
 var background = document.getElementById("bg");
 
-setInterval(updateCountdown, 10);
+const countDownInterval = setInterval(updateCountdown, 10);
 fitBg();
 window.addEventListener("resize", fitBg);
 
@@ -16,6 +16,19 @@ function updateCountdown() {
     var seconds = Math.floor((difference % (1000 * 60)) / 1000);
     var milliseconds = Math.floor(difference % (1000));
     countdown.innerHTML = `${days}:${expandNumber(hours, 2)}:${expandNumber(minutes, 2)}:${expandNumber(seconds, 2)}:${expandNumber(milliseconds, 3)}`;
+    if (difference < 0) {
+        clearInterval(countDownInterval);
+        document.getElementById("label").style.display = "none";
+        document.getElementById("countdown").style.display = "none";
+        document.getElementById("timeDescription").style.display = "none";
+        document.getElementById("flightTimeLine").style.display = "inline";
+        setInterval(updateFlightTimeLine, 10);
+    }
+}
+
+function updateFlightTimeLine() {
+    var percentage = 1 - (arrivalTime.getTime() - new Date().getTime())/(arrivalTime.getTime() - depatureTime.getTime())
+    document.getElementById("plane").setAttribute("x", (percentage*130)+30 + "px");
 }
 
 function expandNumber(num, digits) {

@@ -1,9 +1,16 @@
 body {
-    margin: 0;
     overflow: hidden;
+    margin: 0;
     background-color: black;
     color: white;
     font-family: "sofia pro light", ui-sans-serif, system-ui, sans-serif;
+}
+
+#wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
 }
 
 /* @media (max-width: 1334px) {
@@ -42,12 +49,21 @@ body {
 
 #content {
     text-align: center;
+    width: 100vw;
     margin: 0 auto;
-    width: 70vw;
+}
+
+@media (min-width:1350px) {
+    #header {
+        padding: 20px;
+    }
+    
+    #content {
+        width: 70vw;
+    }
 }
 
 #header {
-    padding: 20px;
     border-bottom: 4px solid white;
     font-size: 100px;
     font-weight: bolder;
@@ -61,8 +77,25 @@ body {
     margin-bottom: 0;
 }
 
+#timeDescription span {
+    font-size: 30px;
+    margin-top: 0;
+    opacity: 0.5;
+    padding: 45px;
+}
+
+#timeDescription {
+    text-wrap: nowrap;
+}
+
 #countdown {
     margin-top: 0;
+    margin-bottom: 0;
     font-weight: normal;
     font-size: 100px;
+}
+
+#flightTimeLine {
+    margin-top: 100px;
+    display: none;
 }

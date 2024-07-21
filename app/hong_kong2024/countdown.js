@@ -1,17 +1,20 @@
-var depatureTime = new Date(Date.UTC(2024, 7, 4, 17, 10));
+var departureTime = new Date(Date.UTC(2024, 7, 4, 17, 10));
 // depatureTime = new Date("2024-07-20 14:00");
 var arrivalTime = new Date(Date.UTC(2024, 7, 5, 9, 5));
+var istArrivalTime = new Date(Date.UTC(2024, 7, 4, 20));
+var istDepartureTime = new Date(Date.UTC(2024, 7, 4, 22, 35));
 var countdown = document.getElementById("countdown");
 var background = document.getElementById("bg");
 
-const countDownInterval = setInterval(updateCountdown, 10);
+const plane = document.getElementById("plane");
+const countDownInterval = setInterval(updateCountdown, 1);
 var timeLineInterval = undefined;
 fitBg();
 window.addEventListener("resize", fitBg);
 
 function updateCountdown() {
     var utcNow = new Date();
-    var difference = new Date(depatureTime.getTime() - utcNow.getTime())
+    var difference = new Date(departureTime.getTime() - utcNow.getTime())
     var days = Math.floor(difference / (1000 * 60 * 60 * 24));
     var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
@@ -29,14 +32,29 @@ function updateCountdown() {
 }
 
 function updateFlightTimeLine() {
-    var percentage = 1 - (arrivalTime.getTime() - new Date().getTime())/(arrivalTime.getTime() - depatureTime.getTime())
-    if (percentage > 1) {
-        percentage = 1;
-        document.getElementById("arrival").style.display = "block";
-        clearInterval(timeLineInterval);
+    var percentage = 0
+    var now = new Date()
+    if (now.getTime() > istArrivalTime.getTime() && now.getTime() < istDepartureTime.getTime()) {
+        plane.setAttribute("x", "58.5px");
+        return;
     }
-    console.log(percentage);
-    document.getElementById("plane").setAttribute("x", (percentage*131.5)+28.5 + "px");
+    else if (now.getTime() < istArrivalTime.getTime()) {
+        percentage = 1 - (istArrivalTime.getTime() - now.getTime())/(istArrivalTime.getTime() - departureTime.getTime())
+        console.log(percentage);
+        plane.setAttribute("x", (percentage*30)+28.5 + "px");
+        return;
+    }
+    else {
+        percentage = 1 - (arrivalTime.getTime() - now.getTime())/(arrivalTime.getTime() - istDepartureTime.getTime())
+        console.log(percentage);
+        if (percentage > 1) {
+            percentage = 1;
+            document.getElementById("arrival").style.display = "block";
+            clearInterval(timeLineInterval);
+        }
+        plane.setAttribute("x", (percentage*102)+58.5 + "px");
+    }
+
 }
 
 function expandNumber(num, digits) {

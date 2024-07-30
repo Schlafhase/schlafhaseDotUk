@@ -1,1 +1,53 @@
-Hello, yorld
+<!DOCTYPE html>
+<html>
+    <head>
+        <base>
+        <script src="load_correct_base_path.js"></script>
+        <link rel="stylesheet" href="gravity/styles.css">
+        <title>Gravity | schlafhase.uk</title>
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    </head>
+    <body>
+        <canvas id="gravity" oncontextmenu="return false;">
+        </canvas>
+        <div id="settings">
+            <p id="performance" style="opacity: 0.5;">
+                <span id="fps">FPS: 0</span><span id="tps">TPS: 0</span><br/>
+                <span id="frames">Frame: 0</span><span id="ticks">Tick: 0</span></p>
+            <p>Drag your mouse across the canvas to create a new object.</p>
+            <div id="physicsSettings">
+                <input id="pauseCheckbox" type="checkbox">Paused<br/>
+                <input id="gridCheckbox" type="checkbox">Show Grid<br/>
+                <span>Simulation speed:</span><br/>
+                <input class="generalSlider" id="speedSlider" type="range" min="-100" max="100" value="1"><input class="generalInput" type="number" id="speedInput" value="1"><br/>
+                <span>Ticks per second (accuracy):</span><br/>
+                <input class="generalSlider" id="tpsSlider" type="range" min="200" max="2000000" value="100000"><input class="generalInput" type="number" min="200" max="2000000" id="tpsInput" value="100000"><br/>
+            </div>
+            <div id="cameraSettings">
+                Camera Mode:<br/>
+                <select id="cameraSelection">
+                    <option value="followObject">Follow Object</option>
+                    <option value="static">Static</option>
+                    <option value="relative">Relative</option>
+                </select>
+                <div id="followObjectSettings">
+                    Object to follow:<br/>
+                    <select class="objectSelection" id="objectFollowSelect">
+                        <option value="0">Something went wrong</option>
+                    </select>
+                </div>
+            </div>
+            <div id="objectList">
+                All Objects:
+                <div class="object" data-id="0" id="object-0">
+                    <span class="objectName">Something went wrong</span><span class="objectButtons"><span title="Delete" class="deleteObject">X</span><span title="Expand" class="expandObject">▼</span></span>
+                    <div class="expandedMenu" id="expand-0">
+                        <span></span><input type="checkbox">Trace Orbit</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="gravity/PhysicsObject.js"></script>
+        <script src="gravity/main.js"></script>
+    </body>
+</html>

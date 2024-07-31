@@ -15,13 +15,20 @@
             <p id="performance" style="opacity: 0.5;">
                 <span id="fps">FPS: 0</span><span id="tps">TPS: 0</span><br/>
                 <span id="frames">Frame: 0</span><span id="ticks">Tick: 0</span></p>
-            <p>Drag your mouse across the canvas to create a new object.</p>
+                <div id="customObjectSettings">
+                    <p>Create new Object</p>
+                    Name: <input id="nameInput" type="text" value="Physics Object"><br/>
+                    Mass: <input id="massInput" type="number" value="5000"><br/>
+                    Radius: <input id="radiusInput" type="number" min="1" value="50"><br/>
+                    Color: <input id="colorInput" type="text" value="white">
+                </div>
+                <p>Drag your mouse across the canvas to create the object.</p>
             <div id="physicsSettings">
                 <input id="pauseCheckbox" type="checkbox">Paused<br/>
                 <input id="gridCheckbox" type="checkbox">Show Grid<br/>
                 <span>Simulation speed:</span><br/>
                 <input class="generalSlider" id="speedSlider" type="range" min="-100" max="100" value="1"><input class="generalInput" type="number" id="speedInput" value="1"><br/>
-                <span>Ticks per second (accuracy):</span><br/>
+                <span>Ticks per second:</span><br/>
                 <input class="generalSlider" id="tpsSlider" type="range" min="200" max="2000000" value="100000"><input class="generalInput" type="number" min="200" max="2000000" id="tpsInput" value="100000"><br/>
             </div>
             <div id="cameraSettings">

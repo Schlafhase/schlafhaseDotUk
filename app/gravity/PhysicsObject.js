@@ -12,6 +12,7 @@ class PhysicsObject {
         this.orbitRelativeTo = "coordinate system";
         this.id = crypto.randomUUID();
         this.orbitColor = orbitColor;
+        this.phData = new PhysicsData(0, 0, 0);
     }
 
     applyVelocity(stepSize = 1) {
@@ -29,7 +30,7 @@ class Physics {
         var force = (Physics.gravityConstant * phObject1.mass * phObject2.mass) / Math.pow(distance, 2);
         var angle = Math.atan2((phObject2.y - phObject1.y), (phObject2.x - phObject1.x));
         Physics.applyForceAtAngle(phObject2, force, angle, stepSize);
-        return new PhysicsData(force, angle, distance);
+        // phObject2.phData = PhysicsData(force/stepSize, angle, distance);
     }
 
     static applyForceAtAngle(phObject, force, angle, stepSize=1) {

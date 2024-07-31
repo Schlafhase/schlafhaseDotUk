@@ -87,3 +87,7 @@ body {
 .generalInput {
     width: 20%;
 }
+
+#customObjectSettings input {
+    float: right;
+}

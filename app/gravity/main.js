@@ -42,10 +42,6 @@ var secondCounter = 0;
 
 var phObjects = [];
 var images = [];
-var phData = [];
-for (var i = 0; i<phObjects.length; i++) {
-    phData.push(new PhysicsData(0, 0, 0));
-}
 
 var objectList = document.getElementById("objectList");
 var deleteButtons = document.getElementsByClassName("deleteObject");
@@ -158,6 +154,12 @@ function updateCanvas() {
             }
         }
     }
+    // if (visualizeForce) {
+    //     for (var i = 0; i < phObjects.length; i++) {
+    //         var phObject = phObjects[i];
+    //         var phData = phObject.phData;
+
+    // }
     for (var i = 0; i < phObjects.length; i++) {
         var phObject = phObjects[i];
         var rad = (images[i].width/scale)/2;
@@ -259,8 +261,8 @@ function mouseUpEventHandler(event) {
             var dragEndY = canCoordinateToPhysicsCoordinate(0, event.offsetY)[1];
             var xVel = (dragEndX - dragStartX)/50;
             var yVel = (dragEndY - dragStartY)/50;
-            phObjects.push(new PhysicsObject(dragStartX, dragStartY, xVel, yVel, 500000, "User created Physics Object", colors[Math.round(Math.random()*colors.length)]))
-            images.push(generateCircleImage(50, "pink", canvas));
+            phObjects.push(new PhysicsObject(dragStartX, dragStartY, xVel, yVel, document.getElementById("massInput").value, document.getElementById("nameInput").value, colors[Math.round(Math.random()*colors.length)]))
+            images.push(generateCircleImage(document.getElementById("radiusInput").value, document.getElementById("colorInput").value, canvas));
             drag = false;
             refreshObjectList();
         }
@@ -295,22 +297,14 @@ function wheelEventListener(event) {
 }
 
 function generateCircleImage(radius, color, canvas) {
-    var prevWidth = canvas.width;
-    var prevHeight = canvas.height;
-    canvas.width = radius * 2;
-    canvas.height = radius * 2;
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.arc(radius, radius, radius, 0, 2 * Math.PI);
-    ctx.fillStyle = color;
-    ctx.fill();
-    ctx.closePath();
-    var image = new Image();
-    image.src = canvas.toDataURL();
-    canvas.width = prevWidth;
-    canvas.height = prevHeight;
-    return image;
+    var data = `<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"> <g> <circle style="fill:${color};" cx="50" cy="50" r="50" /></g></svg>`
+    var DOMURL = window.URL || window.webkitURL || window;
+    var img = new Image();
+    var svg = new Blob([data], {type: 'image/svg+xml'});
+    var url = DOMURL.createObjectURL(svg);
+    img.src = url;
+    img.width = radius * 2;
+    return img;
 }
 
 function canCoordinateToPhysicsCoordinate(canX, canY) {
@@ -395,8 +389,11 @@ function generateObjectCard(obj) {
 
 function setOrbitRelative(id) {
     var obj = getObjectById(id);
+    var prevVal = obj.orbitRelativeTo;
     obj.orbitRelativeTo = document.getElementById(`orbitRelative-${id}`).value;
-    obj.orbitPoints = [];
+    if (obj.orbitRelativeTo != prevVal) {
+        obj.orbitPoints = [];
+    }
 }
 
 function getObjectById(id) {

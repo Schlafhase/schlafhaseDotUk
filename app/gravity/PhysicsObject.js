@@ -30,7 +30,7 @@ class Physics {
         var force = (Physics.gravityConstant * phObject1.mass * phObject2.mass) / Math.pow(distance, 2);
         var angle = Math.atan2((phObject2.y - phObject1.y), (phObject2.x - phObject1.x));
         Physics.applyForceAtAngle(phObject2, force, angle, stepSize);
-        // phObject2.phData = PhysicsData(force/stepSize, angle, distance);
+        return new PhysicsData(force, angle);
     }
 
     static applyForceAtAngle(phObject, force, angle, stepSize=1) {
@@ -43,6 +43,25 @@ class PhysicsData {
     constructor(force, angle, distance) {
         this.force = force;
         this.angle = angle;
-        this.distance = distance;
+    }
+
+    reset() {
+        this.force = 0;
+        this.angle = 0;
+    }
+
+    add(phData2) {
+        var [x, y] = this.toVector();
+        var [x2, y2] = phData2.toVector();
+        var xr = x + x2;
+        var yr = y + y2;
+        var rForce = Math.sqrt(xr*xr + yr*yr);
+        var rAngle = Math.atan2(yr, xr);
+        this.force = rForce;
+        this.angle = rAngle;
+    }
+
+    toVector() {
+        return [Math.cos(this.angle)*this.force, Math.sin(this.angle)*this.force];
     }
 }

@@ -20,6 +20,7 @@ var tickCounter = 0;
 var lastFpsUpdate = 0;
 var lastTpsUpdate = 0;
 var showGrid = false;
+var visualizeForce = false;
 var gridSize = 1000;
 var paused = false;
 
@@ -72,12 +73,6 @@ var solarSystemImages = [earthImage, moonImage, marsImage, sunImage];
 
 phObjects = solarSystem;
 images = solarSystemImages;
-// deleteObject(mars.id);
-// for (var i = 0; i<4; i++) {
-//     phObjects.push(new PhysicsObject(Math.random() * 1000, Math.random() * 1000, Math.random() * 4 - 2, Math.random() * 4 - 2, Math.random() * 5));
-//     images.push(generateCircleImage(phObjects[phObjects.length - 1].mass * 10, colors[Math.round(Math.random()*colors.length)], canvas));
-// }
-//threeBody.applyVelocity = () => { return };
 
 setInterval(updateCanvas, Math.round(1000/targetFps));
 setInterval(updatePhysics, 5);
@@ -92,6 +87,7 @@ document.getElementById("cameraSelection").addEventListener("change", cameraMode
 document.getElementById("objectFollowSelect").addEventListener("change", objectFollowSelectChangeEventHandler);
 document.getElementById("pauseCheckbox").addEventListener("change", (event) => paused = event.target.checked);
 document.getElementById("gridCheckbox").addEventListener("change", (event) => showGrid = event.target.checked);
+document.getElementById("forcesCheckbox").addEventListener("change", (event) => visualizeForce = event.target.checked);
 document.getElementById("speedSlider").addEventListener("change", (event) => {stepPerCall = event.target.value; document.getElementById("speedInput").value=event.target.value;});
 document.getElementById("speedInput").addEventListener("change", (event) => {stepPerCall = event.target.value; document.getElementById("speedSlider").value=event.target.value;})
 document.getElementById("tpsSlider").addEventListener("change", (event) => {targetTps = event.target.value; document.getElementById("tpsInput").value=event.target.value;});
@@ -154,12 +150,6 @@ function updateCanvas() {
             }
         }
     }
-    // if (visualizeForce) {
-    //     for (var i = 0; i < phObjects.length; i++) {
-    //         var phObject = phObjects[i];
-    //         var phData = phObject.phData;
-
-    // }
     for (var i = 0; i < phObjects.length; i++) {
         var phObject = phObjects[i];
         var rad = (images[i].width/scale)/2;
@@ -167,6 +157,22 @@ function updateCanvas() {
             var canX = PhysicsCoordinateToCanCoordinate(phObject.x, 0)[0];
             var canY = PhysicsCoordinateToCanCoordinate(0, phObject.y)[1];
             canvasCtx.drawImage(images[i], canX - rad, canY - rad, rad*2, rad*2);
+        }
+    }
+    if (visualizeForce) {
+        for (var i = 0; i < phObjects.length; i++) {
+            var phObject = phObjects[i];
+            var phData = phObject.phData;
+            canvasCtx.beginPath();
+            canvasCtx.strokeStyle = "magenta";
+            var [x, y] = PhysicsCoordinateToCanCoordinate(phObject.x, phObject.y);
+            var xOffset = (Math.cos(phData.angle) * -phData.force * 100);
+            var yOffset = (Math.sin(phData.angle) * -phData.force * 100);
+            var [x2, y2] = PhysicsCoordinateToCanCoordinate(phObject.x + xOffset, phObject.y + yOffset);
+            canvasCtx.moveTo(x, y);
+            canvasCtx.lineTo(x2, y2);
+            canvasCtx.stroke();
+            canvasCtx.closePath();
         }
     }
     if (drag) {
@@ -195,12 +201,16 @@ function updatePhysics() {
         for (var _ = 0; _<Math.round(stepPerCall/stepSize); _++) {
             for (var i = 0; i < phObjects.length; i++) {
                 var phObject = phObjects[i];
+                if (_ == 0) {
+                    phObject.phData.reset();
+                }
                 for (var j = 0; j < phObjects.length; j++) {
                     if (j == i) {
                         continue;
                     }
                     var phObject2 = phObjects[j];
-                    var forceData = Physics.applyGravity(phObject, phObject2, stepSize);
+                    var phData = Physics.applyGravity(phObject, phObject2, stepSize);
+                    phObject2.phData.add(phData);
                 }
                 phObject.applyVelocity(stepSize);
                 if (phObject.traceOrbit && orbitCounter % phObject.traceQuality == 0 && _ == 0) {
@@ -421,7 +431,12 @@ function cameraModeChangeEventHandler(event) {
 }
 
 function objectFollowSelectChangeEventHandler(event) {
+    var prevVal = followedObject;
     followedObject = phObjects.indexOf(getObjectById(event.target.value));
+    if (followedObject != prevVal) {
+        cameraOffsetX = 0;
+        cameraOffsetY = 0;
+    }
 }
 
 function isCoordinateInFrame(x, y, margin) {

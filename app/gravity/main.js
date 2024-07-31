@@ -166,8 +166,8 @@ function updateCanvas() {
             canvasCtx.beginPath();
             canvasCtx.strokeStyle = "magenta";
             var [x, y] = PhysicsCoordinateToCanCoordinate(phObject.x, phObject.y);
-            var xOffset = (Math.cos(phData.angle) * -phData.force * 100);
-            var yOffset = (Math.sin(phData.angle) * -phData.force * 100);
+            var xOffset = (Math.cos(phData.angle) * -phData.force * 10000000)/targetTps;
+            var yOffset = (Math.sin(phData.angle) * -phData.force * 10000000)/targetTps;
             var [x2, y2] = PhysicsCoordinateToCanCoordinate(phObject.x + xOffset, phObject.y + yOffset);
             canvasCtx.moveTo(x, y);
             canvasCtx.lineTo(x2, y2);

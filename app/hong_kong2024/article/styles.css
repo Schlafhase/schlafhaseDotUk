@@ -1,7 +1,9 @@
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    gap: 2rem;
+@media (any-pointer: fine) {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+        gap: 2rem;
+    }
 }
 
 .paragraph:not(:first-of-type) {

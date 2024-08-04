@@ -2,7 +2,7 @@ var departureTime = new Date(Date.UTC(2024, 7, 4, 18, 10));
 // depatureTime = new Date("2024-07-20 14:00");
 var arrivalTime = new Date(Date.UTC(2024, 7, 5, 9, 5));
 var istArrivalTime = new Date(Date.UTC(2024, 7, 4, 21));
-var istDepartureTime = new Date(Date.UTC(2024, 7, 4, 22, 35));
+var istDepartureTime = new Date(Date.UTC(2024, 7, 5, 2, 45));
 var countdown = document.getElementById("countdown");
 var background = document.getElementById("bg");
 

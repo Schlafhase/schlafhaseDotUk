@@ -5,6 +5,7 @@
 
 * {
     scrollbar-color: rgb(51, 51, 51) rgb(24, 24, 24);
+    overflow-x: hidden;
 }
 
 

@@ -1,13 +1,58 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Your GitHub Year in Review</title>
+    <base>
+    <script src="load_correct_base_path.js"></script>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="stylesheet" href="github_wrapped/styles.css">
+    <title>Your GitHub Year in Review</title>
 </head>
 <body>
 
+<div id="loading">
+    <div id="fetching-div">
+        <span>Fetching</span>
+        <div id="fetching">
+            <div>
+                <nobr>commits</nobr>
+            </div>
+            <div style="opacity: 0.7">
+                <nobr>issues</nobr>
+            </div>
+            <div style="opacity: 0.43">
+                <nobr>pull requests</nobr>
+            </div>
+            <div style="opacity: 0.14">
+                <nobr>repos</nobr>
+            </div>
+            <div style="opacity: 0">
+                <nobr>...</nobr>
+            </div>
+        </div>
+        <span id="loading-dots"></span>
+    </div>
+</div>
+
+<div id="content">
+    <img id="star-image" class="hidden" src="images/stars.jpg">
+    <img id="stars-no-bg" class="hidden" src="images/stars_nobg.png">
+    <canvas id="background"></canvas>
+    <div id="title">
+        <h1>Your GitHub Year in Review</h1>
+        <div id="subtitle">
+            <p>Let's have a look at your GitHub activity in the past year.</p>
+        </div>
+    </div>
+
+    <div id="data">
+
+    </div>
+</div>
+
 </body>
-<script src="GitHubTypes.js"></script>
-<script src="testData.js"></script>
-<script src="index.js"></script>
+<script src="github_wrapped/GitHubTypes.js"></script>
+<script src="github_wrapped/testData.js"></script>
+<script src="github_wrapped/index.js"></script>
 </html>

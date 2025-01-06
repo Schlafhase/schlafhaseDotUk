@@ -44,10 +44,8 @@ class WrappedStats {
         this.issuesOpened = 0;
         this.pullRequestsOpened = 0;
         this.worstCommitMessages = [];
-        this.longestStreak = 0;
         this.longestCommitMessage = "";
         this.shortestCommitMessage = "";
-        this.repoWorkingTimes = []; // TimeSpan in days
         this.mostActiveRepo = "";
         this.mostActiveRepoCommits = 0;
     }
@@ -126,10 +124,8 @@ class WrappedStats {
             issuesOpened: issuesOpened,
             pullRequestsOpened: pullRequestsOpened,
             worstCommitMessages: worstCommitMessages.map((message) => message.message),
-            longestStreak: 0,
             longestCommitMessage: longestCommitMessage,
             shortestCommitMessage: shortestCommitMessage,
-            repoWorkingTimes: [],
             mostActiveRepo: mostActiveRepo.name,
             mostActiveRepoCommits: mostActiveRepo.count
         };

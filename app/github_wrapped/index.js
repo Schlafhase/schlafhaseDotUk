@@ -9,7 +9,6 @@ const width = backgroundCanvasCtx.canvas.width = window.innerWidth;
 const height = backgroundCanvasCtx.canvas.height = window.innerHeight * 2;
 
 const title = document.querySelector('#title');
-const subtitle = document.querySelector('#subtitle');
 const sectionHeader = document.querySelector('#section-header');
 
 const data = document.querySelector('#data');
@@ -28,11 +27,14 @@ backgroundCanvasCtx.fillRect(0, 0, width, height);
 // commits
 let mostProductiveDay = twentyTwentyFour;
 let mostProductiveDayCommitCount = 0;
+let mostProductiveDayElement;
 
 let longestStreak = 0;
 let currentStreak = 0;
 let longestStreakBegin = twentyTwentyFour;
+let longestStreakElement;
 let currentStreakBegin = twentyTwentyFour;
+let currentStreakElement;
 
 Date.prototype.addDays = function (days) {
     const date = new Date(this.valueOf());
@@ -58,11 +60,14 @@ function showCommitData(commits) {
         commitOverlay.classList.add('commit-overlay');
 
         commitElement.classList.add(`commit-${i % 50}`);
-        commitOverlay.classList.add(`commit-overlay-${i}`);
+        commitElement.id = `commit-d-${i}`;
+        commitOverlay.id = `commit-overlay-${i}`;
 
         commitElement.appendChild(commitOverlay);
         data.appendChild(commitElement);
     }
+    mostProductiveDayElement = document.querySelector(".commit-d-0");
+    longestStreakElement = document.querySelector(".commit-d-0");
 
     showCommit(0);
     countCommits(0, commits);
@@ -80,7 +85,7 @@ function showCommit(index) {
 }
 
 function countCommits(index, commits) {
-    const commitElement = document.querySelector(`.commit-overlay-${index}`);
+    const commitElement = document.querySelector(`#commit-overlay-${index}`);
 
     const thisDate = twentyTwentyFour.addDays(index);
     const thisDateString = thisDate.toISOString().slice(0, 10);
@@ -88,14 +93,23 @@ function countCommits(index, commits) {
     const commitCount = commits.filter((commit) => commit.commit.author.date.slice(0, 10) === thisDateString).length;
     commitElement.style.opacity = lerp(0, 1, commitCount / 10);
 
+    const commitCountElement = document.createElement('p');
+    commitCountElement.innerHTML = commitCount;
+    commitCountElement.style.fontSize = "0.5cqw";
+    commitCountElement.style.transform = "translateY(0.5cqh)";
+    commitCountElement.classList.add("commit-number");
+    commitElement.appendChild(commitCountElement);
+
     if (commitCount > mostProductiveDayCommitCount) {
         mostProductiveDayCommitCount = commitCount;
         mostProductiveDay = thisDate;
+        mostProductiveDayElement = document.querySelector(`#commit-d-${index}`);
     }
 
     if (commitCount === 0) {
         currentStreak = 0;
-        currentStreakBegin = thisDate;
+        currentStreakBegin = thisDate + 1;
+        currentStreakElement = document.querySelector(`#commit-d-${index}`);
     } else {
         currentStreak++;
         if (currentStreak > longestStreak) {
@@ -146,6 +160,36 @@ function showTitle(newTitle, newSubtitle) {
         title.style.transform = "scale(1)";
     }, 20);
 }
+
+// function fadeTitle(newTitle, newSubtitle) {
+//     title.style.transform = "";
+//     title.style.width = "0";
+//     title.style.margin = "0 auto";
+//     title.innerHTML = newTitle + "<div id=\"subtitle\">" + newSubtitle + "</div>";
+//
+//     // const fadingText = document.querySelector("#fading-text");
+//     // const subtitle = document.querySelector("#subtitle");
+//
+//     // fadeLetter(0, newTitle, fadingText);
+//     // fadeLetter(0, newSubtitle, subtitle);
+//
+//     setTimeout(() => {
+//         title.style.transition = "transform 0.5s, width 0.5s";
+//         title.style.width = "100%";
+//     }, 20);
+// }
+
+// function fadeLetter(index, text, el, maxIndex) {
+//     const spanEl = document.createElement('span');
+//     spanEl.innerHTML = text[index];
+//     spanEl.classList.add("fading-letter");
+//
+//     el.appendChild(spanEl);
+//
+//     if (index < text.length - 1) {
+//         setTimeout(() => fadeLetter(index + 1, text, el, maxIndex), 100);
+//     }
+// }
 
 function lerp(a, b, t) {
     return a + (b - a) * t;
@@ -207,7 +251,7 @@ function updateFetchingDisplay(pos) {
 const FetchAllPages = async (url) => {
     let result = [];
 
-    for (let page = 1; page < 100; page++) {
+    for (let page = 1; page < 10; page++) {
         const pageURL = `${url}&page=${page}`;
         let response;
 
@@ -217,6 +261,7 @@ const FetchAllPages = async (url) => {
         }
 
         if (!response.ok) {
+            // await sleep(2);
             break;
         }
 
@@ -237,19 +282,19 @@ const GetData = async (user) => {
     let pull_requests;
     let repos;
 
-    let url = `https://api.github.com/search/commits?per_page=100&q=author:${user}`;
+    let url = `https://api.github.com/search/commits?per_page=100&q=author:${user}+committer-date:2024-01-01..2024-12-31`;
     commits = await FetchAllPages(url);
     updateFetchingDisplay(1);
 
-    url = `https://api.github.com/search/issues?per_page=100&q=author:${user}+is:issue`;
+    url = `https://api.github.com/search/issues?per_page=100&q=author:${user}+is:issue+created:2024-01-01..2024-12-31`;
     issues = await FetchAllPages(url);
     updateFetchingDisplay(2);
 
-    url = `https://api.github.com/search/issues?per_page=100&q=author:${user}+is:pull-request`;
+    url = `https://api.github.com/search/issues?per_page=100&q=author:${user}+is:pull-request+created:2024-01-01..2024-12-31`;
     pull_requests = await FetchAllPages(url);
     updateFetchingDisplay(3);
 
-    url = `https://api.github.com/users/${user}/repos?per_page=100`;
+    url = `https://api.github.com/search/repositories?q=user:${user}+created:2024-01-01..2024-12-31`;
     repos = await FetchAllPages(url);
     fetchingDisplay.style.display = "none";
 
@@ -325,7 +370,7 @@ function commitsSection(ghData) {
     sleep(0.5).then(() => {
         showTitleFromTop("Let's start with the commits!", "");
 
-        sleep(1.5).then(() => {
+        sleep(2).then(() => {
             flyToBottomHideTitle();
 
             sleep(0.5).then(() => {
@@ -337,6 +382,46 @@ function commitsSection(ghData) {
 
                 sleep(0.2).then(() => {
                     showTitle("You've commited a total of " + wrapped.totalCommits + " times!", wrapped.totalCommits > 1000 ? "Wow! You must have been busy." : wrapped.totalCommits > 500 ? "That's a lot of code!" : wrapped.totalCommits > 365 ? "That's more than one commit every day!" : "I'm sure you will code even more next year!");
+
+                    // return;
+
+                    sleep(5).then(() => {
+                        const commitsToBeRemoved = document.querySelectorAll(`.commit:not(#${mostProductiveDayElement.id})`);
+                        document.querySelectorAll(".commit").forEach((element) => element.style.transform = "scale(0)");
+
+                        dataContainer.style.transition = "opacity 0.5s, width 0.5s, height 0.5s"
+                        data.style.display = "block";
+                        dataContainer.style.width = "0";
+                        dataContainer.style.opacity = "0";
+
+                        shrinkHideTitle();
+
+                        sleep(1).then(() => {
+                            commitsToBeRemoved.forEach((element) => data.removeChild(element));
+
+                            showTitle("Your most productive day was <i>" + mostProductiveDay.toDateString() + "</i>", "You've commited" + " " + mostProductiveDayCommitCount + " times on that day.");
+
+                            dataContainer.style.borderRadius = "2vw";
+                            dataContainer.style.setProperty("--width", "calc((70vw + 2em) / 10)");
+                            dataContainer.style.width = "var(--width)";
+                            dataContainer.style.height = "var(--width)";
+                            dataContainer.style.opacity = "1";
+
+                            data.style.width = "100%";
+                            data.style.height = "100%";
+
+                            const commitCountElement = document.createElement('p');
+                            commitCountElement.innerHTML = mostProductiveDayCommitCount;
+                            commitCountElement.classList.add("commit-number");
+                            document.querySelector(`#${mostProductiveDayElement.id} .commit-overlay`).innerHTML = commitCountElement.outerHTML;
+
+                            mostProductiveDayElement.style.margin = "0";
+                            mostProductiveDayElement.style.transform = "scale(1)";
+                            mostProductiveDayElement.style.width = "100%";
+                            mostProductiveDayElement.style.height = "100%";
+
+                        });
+                    });
                 });
             });
         });

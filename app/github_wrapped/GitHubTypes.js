@@ -61,48 +61,50 @@ class WrappedStats {
         let shortestCommitMessageSet = false;
         let commitsInRepo = [];
 
+        totalCommits = data.commits[0] ? data.commits[0].total_count : 0;
+        issuesOpened = data.issues[0] ? data.issues[0].total_count : 0;
+        pullRequestsOpened = data.pull_requests[0] ? data.pull_requests[0].total_count : 0;
+        newRepos = data.repos.filter(r => !r.fork).map(r => r.name);
+
         for (const commitPage of data.commits) {
             for (const commit of commitPage.items) {
-                if (commit.commit.author.date.slice(0, 4) === "2024") {
-                    totalCommits++;
-                    commitMessages.push({
-                        message: commit.commit.message,
-                        score: rateCommitMessage(commit.commit.message)
+                commitMessages.push({
+                    message: commit.commit.message,
+                    score: rateCommitMessage(commit.commit.message)
+                });
+
+                if (commitsInRepo.filter((kvp) => kvp.name === commit.repository.name).length === 0) {
+                    commitsInRepo.push({
+                        name: commit.repository.name,
+                        count: 1
                     });
-
-                    if (commitsInRepo.filter((kvp) => kvp.name === commit.repository.name).length === 0) {
-                        commitsInRepo.push({
-                            name: commit.repository.name,
-                            count: 1
-                        });
-                    } else {
-                        commitsInRepo.filter((kvp) => kvp.name === commit.repository.name)[0].count++;
-                    }
+                } else {
+                    commitsInRepo.filter((kvp) => kvp.name === commit.repository.name)[0].count++;
                 }
             }
         }
+        //
+        // for (const issuePage of data.issues) {
+        //     for (const issue of issuePage.items) {
+        //         if (issue.created_at.slice(0, 4) === "2024") {
+        //             issuesOpened++;
+        //         }
+        //     }
+        // }
+        //
+        // for (const pullRequestPage of data.pull_requests) {
+        //     for (const pullRequest of pullRequestPage.items) {
+        //         if (pullRequest.created_at.slice(0, 4) === "2024") {
+        //             pullRequestsOpened++;
+        //         }
+        //     }
+        // }
 
-        for (const issuePage of data.issues) {
-            for (const issue of issuePage.items) {
-                if (issue.created_at.slice(0, 4) === "2024") {
-                    issuesOpened++;
-                }
-            }
-        }
-
-        for (const pullRequestPage of data.pull_requests) {
-            for (const pullRequest of pullRequestPage.items) {
-                if (pullRequest.created_at.slice(0, 4) === "2024") {
-                    pullRequestsOpened++;
-                }
-            }
-        }
-
-        for (const repo of data.repos) {
-            if (repo.created_at.slice(0, 4) === "2024" && repo.fork === false) {
-                newRepos.push(repo.name);
-            }
-        }
+        // for (const repo of data.repos) {
+        //     if (repo.created_at.slice(0, 4) === "2024" && repo.fork === false) {
+        //         newRepos.push(repo.name);
+        //     }
+        // }
 
         for (const message of commitMessages) {
             if (!shortestCommitMessageSet || message.message.length < shortestCommitMessage.length) {

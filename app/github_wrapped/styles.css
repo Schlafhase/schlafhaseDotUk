@@ -175,3 +175,28 @@ p, h1 {
 .fading-letter {
     animation: fade 0.5s;
 }
+
+#data-loss-warning {
+    top: -20vh;
+    font-size: 3.5cqh;
+    padding: 0 1em;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: fixed;
+    width: fit-content;
+    height: 5%;
+    border-radius: 1vw;
+    background-color: rgba(255, 249, 0, 0.74);
+    z-index: 1001;
+    transition: top 0.5s;
+    text-shadow: 2px 2px 6px red;
+}
+
+.commit-column {
+    background-color: lime;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    transition: height 0.5s;
+    height: 0;
+    width: 100%;
+}

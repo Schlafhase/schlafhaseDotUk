@@ -83,28 +83,6 @@ class WrappedStats {
                 }
             }
         }
-        //
-        // for (const issuePage of data.issues) {
-        //     for (const issue of issuePage.items) {
-        //         if (issue.created_at.slice(0, 4) === "2024") {
-        //             issuesOpened++;
-        //         }
-        //     }
-        // }
-        //
-        // for (const pullRequestPage of data.pull_requests) {
-        //     for (const pullRequest of pullRequestPage.items) {
-        //         if (pullRequest.created_at.slice(0, 4) === "2024") {
-        //             pullRequestsOpened++;
-        //         }
-        //     }
-        // }
-
-        // for (const repo of data.repos) {
-        //     if (repo.created_at.slice(0, 4) === "2024" && repo.fork === false) {
-        //         newRepos.push(repo.name);
-        //     }
-        // }
 
         for (const message of commitMessages) {
             if (!shortestCommitMessageSet || message.message.length < shortestCommitMessage.length) {
@@ -128,8 +106,8 @@ class WrappedStats {
             worstCommitMessages: worstCommitMessages.map((message) => message.message),
             longestCommitMessage: longestCommitMessage,
             shortestCommitMessage: shortestCommitMessage,
-            mostActiveRepo: mostActiveRepo.name,
-            mostActiveRepoCommits: mostActiveRepo.count
+            mostActiveRepo: mostActiveRepo ? mostActiveRepo.name : "",
+            mostActiveRepoCommits: mostActiveRepo ? mostActiveRepo.count : ""
         };
     }
 }

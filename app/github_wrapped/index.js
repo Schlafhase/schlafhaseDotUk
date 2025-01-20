@@ -30,7 +30,9 @@ let mostProductiveDayCommitCount = 0;
 let mostProductiveDayElement;
 
 let longestStreak = 0;
+let longestStreakCommits = [];
 let currentStreak = 0;
+let currentStreakCommits = [];
 let longestStreakBegin = twentyTwentyFour;
 let longestStreakElement;
 let currentStreakBegin = twentyTwentyFour;
@@ -90,7 +92,8 @@ function countCommits(index, commits) {
     const thisDate = twentyTwentyFour.addDays(index);
     const thisDateString = thisDate.toISOString().slice(0, 10);
 
-    const commitCount = commits.filter((commit) => commit.commit.author.date.slice(0, 10) === thisDateString).length;
+    const commitsToday = commits.filter((commit) => commit.commit.author.date.slice(0, 10) === thisDateString);
+    const commitCount = commitsToday.length;
     commitElement.style.opacity = lerp(0, 1, commitCount / 10);
 
     const commitCountElement = document.createElement('p');
@@ -108,12 +111,16 @@ function countCommits(index, commits) {
 
     if (commitCount === 0) {
         currentStreak = 0;
+        currentStreakCommits = [];
         currentStreakBegin = thisDate + 1;
         currentStreakElement = document.querySelector(`#commit-d-${index}`);
     } else {
         currentStreak++;
+        currentStreakCommits.push(commitsToday);
+
         if (currentStreak > longestStreak) {
             longestStreak = currentStreak;
+            longestStreakCommits = currentStreakCommits;
             longestStreakBegin = currentStreakBegin;
         }
     }
@@ -260,8 +267,9 @@ const FetchAllPages = async (url) => {
         } catch {
         }
 
-        if (!response.ok) {
+        if (!response || !response.ok) {
             // await sleep(2);
+            document.querySelector("#data-loss-warning").style.top = "2%";
             break;
         }
 
@@ -282,19 +290,19 @@ const GetData = async (user) => {
     let pull_requests;
     let repos;
 
-    let url = `https://api.github.com/search/commits?per_page=100&q=author:${user}+committer-date:2024-01-01..2024-12-31`;
+    let url = `https://api.github.com/search/commits?per_page=100&q=author:${user}+committer-date:2024-01-01..2024-12-31&sort=committer-date`;
     commits = await FetchAllPages(url);
     updateFetchingDisplay(1);
 
-    url = `https://api.github.com/search/issues?per_page=100&q=author:${user}+is:issue+created:2024-01-01..2024-12-31`;
+    url = `https://api.github.com/search/issues?per_page=100&q=author:${user}+is:issue+created:2024-01-01..2024-12-31&sort=created`;
     issues = await FetchAllPages(url);
     updateFetchingDisplay(2);
 
-    url = `https://api.github.com/search/issues?per_page=100&q=author:${user}+is:pull-request+created:2024-01-01..2024-12-31`;
+    url = `https://api.github.com/search/issues?per_page=100&q=author:${user}+is:pull-request+created:2024-01-01..2024-12-31&sort=created`;
     pull_requests = await FetchAllPages(url);
     updateFetchingDisplay(3);
 
-    url = `https://api.github.com/search/repositories?q=user:${user}+created:2024-01-01..2024-12-31`;
+    url = `https://api.github.com/search/repositories?q=user:${user}+created:2024-01-01..2024-12-31&sort=created`;
     repos = await FetchAllPages(url);
     fetchingDisplay.style.display = "none";
 
@@ -332,11 +340,11 @@ updateBackgroundCanvasLoop();
 
 let wrapped = new WrappedStats();
 
-// GetData("Schlafhase").then(onDataArrived);
+GetData("binaryn3xus").then(onDataArrived);
 // onDataArrived(testData);
 
 
-setTimeout(() => onDataArrived(testData), 100);
+// setTimeout(() => onDataArrived(testData), 100);
 
 function onDataArrived(ghData) {
     document.querySelector("#loading").style.display = "none";
@@ -346,7 +354,7 @@ function onDataArrived(ghData) {
     console.log(wrapped);
 
     showTitle("<h1>Your GitHub Year in Review</h1>", "<p>Let's have a look at your GitHub activity in the past year.</p>");
-    setTimeout(() => commitsSection(ghData), 2000);
+    setTimeout(() => commitsSection(ghData), 500);
     // commitCount.innerHTML = wrapped.totalCommits.toString();
     // newRepos.innerHTML = wrapped.newRepos.join(", ");
     // issuesOpened.innerHTML = wrapped.issuesOpened.toString();
@@ -365,12 +373,14 @@ function onDataArrived(ghData) {
 }
 
 function commitsSection(ghData) {
+    document.querySelector("#data-loss-warning").style.top = "-20vh";
     shrinkHideTitle();
 
+    // what the fuck (help how do i use async await in js 😭)
     sleep(0.5).then(() => {
         showTitleFromTop("Let's start with the commits!", "");
 
-        sleep(2).then(() => {
+        sleep(0.5).then(() => {
             flyToBottomHideTitle();
 
             sleep(0.5).then(() => {
@@ -385,8 +395,8 @@ function commitsSection(ghData) {
 
                     // return;
 
-                    sleep(5).then(() => {
-                        const commitsToBeRemoved = document.querySelectorAll(`.commit:not(#${mostProductiveDayElement.id})`);
+                    sleep(0.5).then(() => {
+                        const commitsToBeRemoved = document.querySelectorAll(`.commit:not(#${mostProductiveDayElement ? mostProductiveDayElement.id : "commit-d-0"})`);
                         document.querySelectorAll(".commit").forEach((element) => element.style.transform = "scale(0)");
 
                         dataContainer.style.transition = "opacity 0.5s, width 0.5s, height 0.5s"
@@ -396,7 +406,7 @@ function commitsSection(ghData) {
 
                         shrinkHideTitle();
 
-                        sleep(1).then(() => {
+                        sleep(0.5).then(() => {
                             commitsToBeRemoved.forEach((element) => data.removeChild(element));
 
                             showTitle("Your most productive day was <i>" + mostProductiveDay.toDateString() + "</i>", "You've commited" + " " + mostProductiveDayCommitCount + " times on that day.");
@@ -420,6 +430,56 @@ function commitsSection(ghData) {
                             mostProductiveDayElement.style.width = "100%";
                             mostProductiveDayElement.style.height = "100%";
 
+                            sleep(0.5).then(() => {
+                                dataContainer.style.width = "0";
+                                dataContainer.style.height = "10vh";
+                                dataContainer.style.opacity = "0";
+                                shrinkHideTitle();
+
+                                sleep(0.5).then(() => {
+                                    data.innerHTML = "";
+                                    dataContainer.style.backgroundColor = "transparent";
+                                    dataContainer.style.backdropFilter = "blur(0)";
+                                    dataContainer.style.boxShadow = "none";
+
+                                    data.style.display = "grid";
+                                    data.style.alignItems = "end";
+                                    data.style.gridTemplateColumns = `repeat(${longestStreak-1}, 1fr 0.1fr) 1fr`;
+                                    data.style.gridTemplateRows = "1fr";
+
+                                    const commitCounts = longestStreakCommits.map((day) => day.length);
+                                    const maxCommitCount = Math.max(...commitCounts);
+
+                                    for (const day of longestStreakCommits) {
+                                        const commitElement = document.createElement('div');
+
+                                        commitElement.classList.add('commit-column');
+                                        let commitCount = day.length;
+
+                                        commitElement.style.height = `${(commitCount / maxCommitCount) * 100}%`;
+
+                                        data.appendChild(commitElement);
+                                        data.appendChild(document.createElement('div')); // spacer
+                                    }
+
+                                    showTitleFromTop("Now let's have a look at your longest streak!", "");
+                                    hideSectionHeader();
+
+                                    sleep(0.5).then(() => {
+                                        flyToBottomHideTitle();
+
+                                        sleep(0.5).then(() => {
+                                            title.style.top = "40%";
+                                            showSectionHeader("Longest Streak");
+
+                                            dataContainer.style.setProperty("--width", "70vw");
+                                            dataContainer.style.width = "var(--width)";
+                                            dataContainer.style.opacity = "1";
+                                            data.style.borderBottom = "2px solid white";
+                                        });
+                                    });
+                                });
+                            });
                         });
                     });
                 });

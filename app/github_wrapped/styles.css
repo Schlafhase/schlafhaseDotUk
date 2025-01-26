@@ -200,3 +200,19 @@ p, h1 {
     height: 0;
     width: 100%;
 }
+
+#inputs {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    font-size: 2em;
+}
+
+#inputs input {
+    height: 2.5em;
+}
+
+#inputs button {
+    height: 3em;
+}

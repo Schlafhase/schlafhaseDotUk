@@ -4,6 +4,18 @@ const fetchingIssuesElement = document.querySelector('#fetching div:nth-child(2)
 const fetchingPullRequestsElement = document.querySelector('#fetching div:nth-child(3)');
 const fetchingReposElement = document.querySelector('#fetching div:nth-child(4)');
 
+const urlSearchParams = new URLSearchParams(window.location.search);
+const userName = urlSearchParams.get('user');
+
+function openReview() {
+    open(window.location.href + '?user=' + document.querySelector('#username').value, "_self");
+}
+
+if (userName === null) {
+    document.querySelector("#loading").innerHTML = "<div id='inputs'><p>Enter your GitHub username to get started!</p><input type=\"text\" id=\"username\" placeholder=\"e.g. Schlafhase\"><button onclick=\"openReview()\")>Start</button></div>";
+    throw new Error();
+}
+
 const backgroundCanvasCtx = document.querySelector('#background').getContext('2d');
 const width = backgroundCanvasCtx.canvas.width = window.innerWidth;
 const height = backgroundCanvasCtx.canvas.height = window.innerHeight * 2;
@@ -340,8 +352,8 @@ updateBackgroundCanvasLoop();
 
 let wrapped = new WrappedStats();
 
-// GetData("Schlafhase").then(onDataArrived);
-onDataArrived(testData);
+GetData(userName).then(onDataArrived);
+// onDataArrived(testData);
 
 
 //setTimeout(() => onDataArrived(testData), 100);

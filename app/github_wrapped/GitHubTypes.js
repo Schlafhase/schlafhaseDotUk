@@ -64,7 +64,10 @@ class WrappedStats {
         totalCommits = data.commits[0] ? data.commits[0].total_count : 0;
         issuesOpened = data.issues[0] ? data.issues[0].total_count : 0;
         pullRequestsOpened = data.pull_requests[0] ? data.pull_requests[0].total_count : 0;
-        newRepos = data.repos.filter(r => !r.fork).map(r => r.name);
+
+        for (const repoPage of data.repos) {
+            newRepos.push(...repoPage.items.filter(r => !r.fork).map(r => r.name))
+        }
 
         for (const commitPage of data.commits) {
             for (const commit of commitPage.items) {

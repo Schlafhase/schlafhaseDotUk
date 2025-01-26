@@ -112,7 +112,7 @@ function countCommits(index, commits) {
     if (commitCount === 0) {
         currentStreak = 0;
         currentStreakCommits = [];
-        currentStreakBegin = thisDate + 1;
+        currentStreakBegin = thisDate.addDays(1);
         currentStreakElement = document.querySelector(`#commit-d-${index}`);
     } else {
         currentStreak++;
@@ -340,11 +340,11 @@ updateBackgroundCanvasLoop();
 
 let wrapped = new WrappedStats();
 
-GetData("binaryn3xus").then(onDataArrived);
-// onDataArrived(testData);
+// GetData("Schlafhase").then(onDataArrived);
+onDataArrived(testData);
 
 
-// setTimeout(() => onDataArrived(testData), 100);
+//setTimeout(() => onDataArrived(testData), 100);
 
 function onDataArrived(ghData) {
     document.querySelector("#loading").style.display = "none";
@@ -354,7 +354,7 @@ function onDataArrived(ghData) {
     console.log(wrapped);
 
     showTitle("<h1>Your GitHub Year in Review</h1>", "<p>Let's have a look at your GitHub activity in the past year.</p>");
-    setTimeout(() => commitsSection(ghData), 500);
+    setTimeout(() => commitsSection(ghData), 3000);
     // commitCount.innerHTML = wrapped.totalCommits.toString();
     // newRepos.innerHTML = wrapped.newRepos.join(", ");
     // issuesOpened.innerHTML = wrapped.issuesOpened.toString();
@@ -380,7 +380,7 @@ function commitsSection(ghData) {
     sleep(0.5).then(() => {
         showTitleFromTop("Let's start with the commits!", "");
 
-        sleep(0.5).then(() => {
+        sleep(2).then(() => {
             flyToBottomHideTitle();
 
             sleep(0.5).then(() => {
@@ -395,7 +395,7 @@ function commitsSection(ghData) {
 
                     // return;
 
-                    sleep(0.5).then(() => {
+                    sleep(7).then(() => {
                         const commitsToBeRemoved = document.querySelectorAll(`.commit:not(#${mostProductiveDayElement ? mostProductiveDayElement.id : "commit-d-0"})`);
                         document.querySelectorAll(".commit").forEach((element) => element.style.transform = "scale(0)");
 
@@ -430,7 +430,7 @@ function commitsSection(ghData) {
                             mostProductiveDayElement.style.width = "100%";
                             mostProductiveDayElement.style.height = "100%";
 
-                            sleep(0.5).then(() => {
+                            sleep(4).then(() => {
                                 dataContainer.style.width = "0";
                                 dataContainer.style.height = "10vh";
                                 dataContainer.style.opacity = "0";
@@ -444,7 +444,7 @@ function commitsSection(ghData) {
 
                                     data.style.display = "grid";
                                     data.style.alignItems = "end";
-                                    data.style.gridTemplateColumns = `repeat(${longestStreak-1}, 1fr 0.1fr) 1fr`;
+                                    data.style.gridTemplateColumns = `repeat(${longestStreak - 1}, 1fr 0.1fr) 1fr`;
                                     data.style.gridTemplateRows = "1fr";
 
                                     const commitCounts = longestStreakCommits.map((day) => day.length);
@@ -465,17 +465,132 @@ function commitsSection(ghData) {
                                     showTitleFromTop("Now let's have a look at your longest streak!", "");
                                     hideSectionHeader();
 
-                                    sleep(0.5).then(() => {
+                                    sleep(2).then(() => {
                                         flyToBottomHideTitle();
 
                                         sleep(0.5).then(() => {
                                             title.style.top = "40%";
                                             showSectionHeader("Longest Streak");
+                                            showTitle("Your longest streak was " + longestStreak + " days long!", "It started on " + longestStreakBegin.toDateString() + " and ended on " + longestStreakBegin.addDays(longestStreak - 1).toDateString() + ".");
+
 
                                             dataContainer.style.setProperty("--width", "70vw");
                                             dataContainer.style.width = "var(--width)";
                                             dataContainer.style.opacity = "1";
                                             data.style.borderBottom = "2px solid white";
+
+                                            sleep(4).then(() => {
+                                                shrinkHideTitle();
+                                                dataContainer.style.width = "0";
+                                                dataContainer.style.height = "10vh";
+                                                dataContainer.style.opacity = "0";
+
+                                                data.innerHTML = "";
+
+                                                sleep(0.5).then(() => {
+                                                    hideSectionHeader();
+                                                    showTitleFromTop("Now let's look at your worst commit messages :D", "");
+
+                                                    sleep(2).then(() => {
+                                                        flyToBottomHideTitle();
+                                                        showSectionHeader("Commit Messages");
+
+                                                        sleep(0.5).then(() => {
+                                                            dataContainer.style.setProperty("--width", "30vw");
+                                                            dataContainer.style.width = "var(--width)";
+                                                            dataContainer.style.height = "auto";
+                                                            dataContainer.style.opacity = "1";
+                                                            dataContainer.style.top = "30%";
+                                                            data.style.display = "block";
+
+                                                            const list = document.createElement('ol');
+                                                            list.type = "1";
+                                                            list.style.textAlign = "left";
+                                                            list.style.fontSize = "2rem";
+
+                                                            for (const message of wrapped.worstCommitMessages) {
+                                                                const listItem = document.createElement('li');
+                                                                listItem.innerHTML = message.replace("\n", "<br/>");
+                                                                list.appendChild(listItem);
+                                                            }
+                                                            data.appendChild(list);
+
+                                                            sleep(7).then(() => {
+                                                                dataContainer.style.width = "0";
+                                                                dataContainer.style.opacity = "0";
+
+                                                                showTitle("Your shortest commit message was:", wrapped.shortestCommitMessage);
+
+                                                                sleep(3).then(() => {
+                                                                    shrinkHideTitle();
+
+                                                                    sleep(0.5).then(() => {
+                                                                        showTitle("And your longest commit message was:", wrapped.longestCommitMessage);
+
+                                                                        sleep(4).then(() => {
+                                                                            shrinkHideTitle();
+                                                                            hideSectionHeader();
+
+                                                                            sleep(0.5).then(() => {
+                                                                                showSectionHeader("Repositories");
+                                                                                title.style.top = "20%";
+                                                                                showTitle("You have created a total of " + wrapped.newRepos.length + " new repositories!", wrapped.newRepos.length > 10 ? "That's a lot of new projects!" : wrapped.newRepos.length > 5 ? "That's a good amount of new projects!" : "That's a good start!");
+                                                                                data.innerHTML = "";
+                                                                                dataContainer.style.width = "var(--width)";
+                                                                                dataContainer.style.opacity = "1";
+
+                                                                                const repoList = document.createElement('ul');
+                                                                                repoList.style.fontSize = "2rem";
+                                                                                repoList.style.listStyle = "none";
+
+                                                                                for (const repo of wrapped.newRepos) {
+                                                                                    const listItem = document.createElement('li');
+                                                                                    listItem.innerHTML = repo;
+                                                                                    repoList.appendChild(listItem);
+                                                                                }
+
+                                                                                data.appendChild(repoList);
+
+                                                                                sleep(5).then(() => {
+                                                                                    shrinkHideTitle();
+                                                                                    dataContainer.style.width = "0";
+                                                                                    dataContainer.style.opacity = "0";
+
+                                                                                    sleep(0.5).then(() => {
+                                                                                        title.style.top = "40%";
+                                                                                        showTitle("The repository with the most commits was:", wrapped.mostActiveRepo);
+
+                                                                                        sleep(3).then(() => {
+                                                                                            shrinkHideTitle();
+                                                                                            hideSectionHeader();
+
+                                                                                            sleep(0.5).then(() => {
+                                                                                                showSectionHeader("Issues and Pull Requests");
+                                                                                                showTitle("You've opened " + wrapped.issuesOpened + " issues and " + wrapped.pullRequestsOpened + " pull requests!", "");
+
+                                                                                                sleep(4).then(() => {
+                                                                                                    shrinkHideTitle();
+                                                                                                    hideSectionHeader();
+
+                                                                                                    sleep(0.5).then(() => {
+                                                                                                        title.style.width = "90%";
+                                                                                                        title.style.marginLeft = "5%";
+                                                                                                        showTitle("That's all for now!", "I hope you enjoyed your GitHub Year in Review and I want to apologise for the lower quality at the end. I'm sure you will understand if you look at the horrendous code :)");
+                                                                                                    });
+                                                                                                });
+                                                                                            });
+                                                                                        });
+                                                                                    });
+                                                                                });
+                                                                            });
+                                                                        });
+                                                                    });
+                                                                });
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            });
                                         });
                                     });
                                 });

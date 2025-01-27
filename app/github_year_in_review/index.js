@@ -12,7 +12,11 @@ function openReview() {
 }
 
 if (userName === null) {
-    document.querySelector("#loading").innerHTML = "<div id='inputs'><p>Enter your GitHub username to get started!</p><input type=\"text\" id=\"username\" placeholder=\"e.g. Schlafhase\"><button onclick=\"openReview()\")>Start</button></div>";
+    document.querySelector("#loading").innerHTML = "<form id='inputs'><p>Enter your GitHub username to get started!</p><input type=\"text\" id=\"username\" placeholder=\"e.g. Schlafhase\"><input value='start' type='submit'></input></form>";
+    document.querySelector("#inputs").addEventListener('submit', (event) => {
+        event.preventDefault();
+        openReview();
+    });
     throw new Error();
 }
 
@@ -39,7 +43,7 @@ backgroundCanvasCtx.fillRect(0, 0, width, height);
 // commits
 let mostProductiveDay = twentyTwentyFour;
 let mostProductiveDayCommitCount = 0;
-let mostProductiveDayElement;
+let mostProductiveDayElement = document.createElement('div');
 
 let longestStreak = 0;
 let longestStreakCommits = [];
@@ -80,11 +84,12 @@ function showCommitData(commits) {
         commitElement.appendChild(commitOverlay);
         data.appendChild(commitElement);
     }
-    mostProductiveDayElement = document.querySelector(".commit-d-0");
-    longestStreakElement = document.querySelector(".commit-d-0");
 
     showCommit(0);
     countCommits(0, commits);
+
+    mostProductiveDayElement = document.querySelector("#commit-d-0");
+    longestStreakElement = document.querySelector("#commit-d-0");
 }
 
 function showCommit(index) {

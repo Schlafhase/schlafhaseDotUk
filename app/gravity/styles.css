@@ -61,6 +61,8 @@ body {
     float: right;
     cursor: pointer;
     user-select: none;
+    display: flex;
+    gap: 5px;
 }
 
 .deleteObject {

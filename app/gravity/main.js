@@ -362,6 +362,10 @@ function changeOrbitTrace(event, id) {
     obj.traceOrbit = event.target.checked;
 }
 
+function changeOrbitQuality(event, id) {
+    var obj = getObjectById(id);
+    obj.traceQuality = event.target.value;
+
 function refreshObjectList() {
     objectList.innerHTML = "All Objects:";
     var objectSelections = document.getElementsByClassName("objectSelection");
@@ -394,7 +398,27 @@ function refreshObjectList() {
 }
 
 function generateObjectCard(obj) {
-    return `<div class="object" data-id="${obj.id}" id="object-${obj.id}"><span class="objectName" onclick="expand('${obj.id}')">${obj.name}</span><span class="objectButtons"><span title="Delete" class="deleteObject" onclick="deleteObject('${obj.id}');">X</span><span title="Expand" class="expandObject" onclick="expand('${obj.id}')" id="expandButton-${obj.id}">◀</span></span><div class="expandedMenu" id="expand-${obj.id}"><span></span><input type="checkbox" id="trace-${obj.id}" onchange="changeOrbitTrace(event, '${obj.id}');" ${obj.traceOrbit ? "checked" : ""}>Trace Orbit <span style="opacity: 0.5;">(High performance impact)</span></span><br/><span>Orbit relative to:</span><br/><select class="objectSelection orbitRelativeSelection" id="orbitRelative-${obj.id}" onchange="setOrbitRelative('${obj.id}');"><option value="${obj.orbitRelativeTo}"></option></select></div></div>`;
+    return `
+    <div class="object" data-id="${obj.id}" id="object-${obj.id}">
+        <span class="objectName" onclick="expand('${obj.id}')">${obj.name}</span>
+        <span class="objectButtons">
+            <span title="Delete" class="deleteObject" onclick="deleteObject('${obj.id}');">X</span>
+            <span title="Expand" class="expandObject" onclick="expand('${obj.id}')" id="expandButton-${obj.id}">◀</span>
+        </span>
+        <div class="expandedMenu" id="expand-${obj.id}">
+            <span></span>
+            <input type="checkbox" id="trace-${obj.id}" onchange="changeOrbitTrace(event, '${obj.id}');" ${obj.traceOrbit ? "checked" : ""}/>
+            Trace Orbit <span style="opacity: 0.5;">(High performance impact)</span>
+            <br/>
+            <span>Orbit relative to:</span><br/>
+            <select class="objectSelection orbitRelativeSelection" id="orbitRelative-${obj.id}" onchange="setOrbitRelative('${obj.id}');">
+                <option value="${obj.orbitRelativeTo}"></option>
+            </select>
+            <br/>
+            <span>Trace period:</span><br/>
+            <input type="range" id="quality-${obj.id}" onchange="changeOrbitQuality(event, '${obj.id}');" value=${obj.traceQuality} min=1 max=1000 step=1/>
+        </div>
+    </div>`;
 }
 
 function setOrbitRelative(id) {

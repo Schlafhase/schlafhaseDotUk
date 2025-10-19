@@ -365,6 +365,7 @@ function changeOrbitTrace(event, id) {
 function changeOrbitQuality(event, id) {
     var obj = getObjectById(id);
     obj.traceQuality = Number(event.target.value);
+}
 
 function refreshObjectList() {
     objectList.innerHTML = "All Objects:";

@@ -417,7 +417,7 @@ function generateObjectCard(obj) {
             </select>
             <br/>
             <span>Trace period:</span><br/>
-            <input type="range" id="quality-${obj.id}" onchange="changeOrbitQuality(event, '${obj.id}');" value=${obj.traceQuality} min=1 max=1000 step=1/>
+            <input type="range" id="quality-${obj.id}" onchange="changeOrbitQuality(event, '${obj.id}');" value=${obj.traceQuality} min=1 max=100 step=1/>
         </div>
     </div>`;
 }

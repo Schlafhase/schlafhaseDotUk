@@ -1,5 +1,5 @@
 class PhysicsObject {
-    constructor(x, y, xVel, yVel, mass, name="Physics Object", orbitColor="lime") {
+    constructor(x, y, xVel, yVel, mass, name="Point Mass", orbitColor="lime") {
         this.x = x;
         this.y = y;
         this.xVel = xVel;

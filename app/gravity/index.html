@@ -1,62 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <base>
-        <script src="load_correct_base_path.js"></script>
-        <link rel="stylesheet" href="gravity/styles.css">
-        <title>Gravity | schlafhase.uk</title>
-        <meta charset="UTF-8">
-        <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    </head>
-    <body>
-        <canvas id="gravity" oncontextmenu="return false;">
-        </canvas>
-        <div id="settings">
-            <p id="performance" style="opacity: 0.5;">
-                <span id="fps">FPS: 0</span><span id="tps">TPS: 0</span><br/>
-                <span id="frames">Frame: 0</span><span id="ticks">Tick: 0</span></p>
-                <div id="customObjectSettings">
-                    <p>Create new Object</p>
-                    Name: <input id="nameInput" type="text" value="Point Mass"><br/>
-                    Mass: <input id="massInput" type="number" value="5000"><br/>
-                    Radius: <input id="radiusInput" type="number" min="1" value="50"><br/>
-                    Color: <input id="colorInput" type="text" value="white">
-                </div>
-                <p>Drag your mouse across the canvas to create the object.</p>
-            <div id="physicsSettings">
-                <input id="pauseCheckbox" type="checkbox">Paused<br/>
-                <input id="gridCheckbox" type="checkbox">Show Grid<br/>
-                <input id="forcesCheckbox" type="checkbox">Show Forces<br/>
-                <span>Simulation speed:</span><br/>
-                <input class="generalSlider" id="speedSlider" type="range" min="-100" max="100" value="1"><input class="generalInput" type="number" id="speedInput" value="1"><br/>
-                <span>Ticks per second:</span><br/>
-                <input class="generalSlider" id="tpsSlider" type="range" min="200" max="2000000" value="100000"><input class="generalInput" type="number" min="200" max="2000000" id="tpsInput" value="100000"><br/>
-            </div>
-            <div id="cameraSettings">
-                Camera Mode:<br/>
-                <select id="cameraSelection">
-                    <option value="followObject">Follow Object</option>
-                    <option value="static">Static</option>
-                    <option value="relative">Relative</option>
-                </select>
-                <div id="followObjectSettings">
-                    Object to follow:<br/>
-                    <select class="objectSelection" id="objectFollowSelect">
-                        <option value="0">Something went wrong</option>
-                    </select>
-                </div>
-            </div>
-            <div id="objectList">
-                All Objects:
-                <div class="object" data-id="0" id="object-0">
-                    <span class="objectName">Something went wrong</span><span class="objectButtons"><span title="Delete" class="deleteObject">X</span><span title="Expand" class="expandObject">▼</span></span>
-                    <div class="expandedMenu" id="expand-0">
-                        <span></span><input type="checkbox">Trace Orbit</span>
-                    </div>
-                </div>
-            </div>
+  <head>
+    <base href="http://127.0.0.1:8080" />
+    <!--
+    <script src="load_correct_base_path.js"></script>
+    -->
+    <link rel="stylesheet" href="styles.css" />
+    <title>Gravity | schlafhase.uk</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  </head>
+  <body>
+    <canvas id="gravity" oncontextmenu="return false;"> </canvas>
+    <div id="settings">
+      <p id="performance" style="opacity: 0.5">
+        <span id="fps">FPS: 0</span><span id="tps">TPS: 0</span><br />
+        <span id="frames">Frame: 0</span><span id="ticks">Tick: 0</span>
+      </p>
+      <div id="customObjectSettings">
+        <p>Create new Object</p>
+        <div id="customObjectKvps">
+          <div>Name:</div>
+          <input id="nameInput" type="text" value="Point Mass" />
+
+          <div>Mass:</div>
+          <input id="massInput" type="number" value="5000" />
+
+          <div>Radius:</div>
+          <input id="radiusInput" type="number" min="1" value="50" />
+
+          <div>Colour:</div>
+          <input id="colorInput" type="text" value="white" />
         </div>
-        <script src="gravity/PhysicsObject.js"></script>
-        <script src="gravity/main.js"></script>
-    </body>
+      </div>
+      <p>Drag your mouse across the canvas to create the object.</p>
+      <div id="physicsSettings">
+        <input id="pauseCheckbox" type="checkbox" value="" />Paused<br />
+        <input id="gridCheckbox" type="checkbox" />Show Grid<br />
+        <input id="forcesCheckbox" type="checkbox" />Show Forces<br />
+        <span>Simulation speed:</span><br />
+        <input
+          class="generalSlider"
+          id="speedSlider"
+          type="range"
+          min="-100"
+          max="100"
+          value="1"
+        /><input
+          class="generalInput"
+          type="number"
+          id="speedInput"
+          value="1"
+        /><br />
+        <span>Ticks per second:</span><br />
+        <input
+          class="generalSlider"
+          id="tpsSlider"
+          type="range"
+          min="200"
+          max="2000000"
+          value="100000"
+        /><input
+          class="generalInput"
+          type="number"
+          min="200"
+          max="2000000"
+          id="tpsInput"
+          value="100000"
+        /><br />
+      </div>
+      <div id="cameraSettings">
+        Camera Mode:<br />
+        <select id="cameraSelection">
+          <option value="followObject">Follow Object</option>
+          <option value="static">Static</option>
+          <option value="relative">Relative</option>
+        </select>
+        <div id="followObjectSettings">
+          Object to follow:<br />
+          <select class="objectSelection" id="objectFollowSelect">
+            <option value="0">Something went wrong</option>
+          </select>
+        </div>
+      </div>
+      <div id="objectList">
+        All Objects:
+        <div class="object" data-id="0" id="object-0">
+          <span class="objectName">Something went wrong</span
+          ><span class="objectButtons"
+            ><span title="Delete" class="deleteObject">X</span
+            ><span title="Expand" class="expandObject">▼</span></span
+          >
+          <div class="expandedMenu" id="expand-0">
+            <span><input type="checkbox" />Trace Orbit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="PhysicsObject.js"></script>
+    <script src="main.js"></script>
+  </body>
 </html>

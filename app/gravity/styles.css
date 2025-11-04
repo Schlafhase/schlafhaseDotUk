@@ -30,6 +30,11 @@ body {
     padding: 2%;
 }
 
+#customObjectKvps {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
 #objectList {
     margin-top: 20px;
     margin-bottom: 20%;
@@ -89,6 +94,3 @@ body {
     width: 20%;
 }
 
-#customObjectSettings input {
-    float: right;
-}

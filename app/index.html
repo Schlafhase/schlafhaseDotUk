@@ -1,112 +1,158 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <link rel="stylesheet" href="styles.css">
-        <title>Linus Y. Schneeberg | Schlafhase</title>
-        <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    </head>
-    <body>
-        <header>
-            <canvas id="headerBanner"></canvas>
-            <div id="title">
-                <h1>Schlafhase</h1>
-                <h2>Linus Y. Schneeberg</h2>
-            </div>
-        </header>
-        <div id="transition"></div>
-        <div id="content">
-            <div class="contentSection" id="aboutMe">
-                <div class="contentSectionHeader">About me</div>
-                <div class="grid">
-                    <p>
-                        I am a student in secondary school from Germany and a creative coder in my free time. I used to write my code in Python, but I am using C# now.
-                    </p>
-                    <p>
-                        My favourite artist is <a href="https://mastodon.social/@TodePond@mas.to">Lu or Luke (either is fine) Wilson</a> and I really enjoy watching Lu or Luke's <a href="https://www.youtube.com/playlist?list=PL9uRa69RF-7wastqKWXT4d9F84BAzfVd4">SandPond Saga</a>.
-                    </p>
-                </div>
-                <p style="opacity: 0.5;">
-                    <a href="life">See more stuff</a>.
-                </p>
-            </div>
-
-            <div class="contentSection" id="myStuff">
-                <div class="contentSectionHeader">My stuff</div>
-                <div class="grid">
-                    <p>
-                        <a class="label" href="https://cactusmessenger.azurewebsites.net">Cactus Messenger</a><br>
-                        A messenger I made using <a href="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor">Blazor</a>.
-                    </p>
-                    <p>
-                        <a class="label" href="https://esolangs.org/wiki/ndim">Ndim</a><br>
-                        An n-dimensional esoteric programming language.
-                    </p>
-                    <p>
-                        <a class="label" href="https://github.com/Schlafhase/Mandelbrot-fractal">Mandelbrot</a><br>
-                        A program to explore the Mandelbrot set.
-                    </p>
-                    <p>
-                        <a class="label" href="https://github.com/Schlafhase/brainfck-cs">Brainfuck</a><br>
-                        A Brainfuck interpreter written in C#. This was my first C# Project.
-                    </p>
-                    <p>
-                        <a class="label" href="https://github.com/Schlafhase/img2cat">Image to cat</a><br>
-                        A python script that converts images into larger images made out of little cat images.
-                    </p>
-                    <p>
-                        <a class="label" href="https://github.com/Schlafhase/img2minecraft">Image to Minecraft</a><br>
-                        A python script that converts images into images built out of Minecraft blocks. It also outputs a Minecraft datapack with a command to build the image.
-                    </p>
-                    <p>
-                        <a class="label" href="https://scratch.mit.edu/users/Schlafhase">Scratch</a><br>
-                        This is my scratch account. I used to be very active on Scratch but I haven't been using it since 2021.
-                    </p>
-                </div>
-                <p style="opacity: 0.5;">
-                    You can find most of my projects on <a href="https://github.com/Schlafhase">Github</a>.
-                </p>
-            </div>
-
-            <div class="contentSection" id="contact">
-                <div class="contentSectionHeader">Contact</div>
-                <div class="grid">
-                    <p>
-                        <span class="label">Email</span><br>
-                        <a href="#" class="cryptedmail"
-                            data-name="schlafhase190"
-                            data-domain="gmail"
-                            data-tld="com"
-                            onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;"></a>
-                    </p>
-                    <p>
-                        <span class="label">2nd Email</span><br>
-                        <a href="#" class="cryptedmail"
-                            data-name="linus.schneeberg"
-                            data-domain="gmail"
-                            data-tld="com"
-                            onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;"></a>
-                    </p>
-                    <p>
-                        <span class="label">mastodon</span><br>
-                        <a href="https://mastodon.social/@Schlafhase">@Schlafhase</a>
-                    </p>
-                    <p>
-                        <span class="label">Instagram</span><br>
-                        <a href="https://www.instagram.com/berdpond/">@berdpond</a>
-                    </p>
-                    <p>
-                        <span class="label">Esolangs</span><br>
-                        <a href="https://esolangs.org/wiki/User:Schlafhase">User:Schlafhase</a>
-                    </p>
-                    <p>
-                        <span class="label">Discord</span><br>
-                        <a style="text-decoration: underline;cursor: pointer;" onclick="navigator.clipboard.writeText('schlafhase');alert('Copied username to clipboard!');">@schlafhase</a>
-                    </p>
-                </div>
-            </div>
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Linus Y. Schneeberg | Schlafhase</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <canvas id="headerBanner"></canvas>
+      <div id="title">
+        <h1>Schlafhase</h1>
+        <h2>Linus Y. Schneeberg</h2>
+      </div>
+    </header>
+    <div id="transition"></div>
+    <div id="content">
+      <div class="contentSection" id="aboutMe">
+        <div class="contentSectionHeader">About me</div>
+        <div class="grid">
+          <p>
+            I am a student in secondary school from Germany and a creative coder
+            in my free time. I used to write my code in Python, but I am using
+            C# now.
+          </p>
+          <p>
+            My favourite artist is
+            <a href="https://mastodon.social/@TodePond@mas.to"
+              >Lu or Luke (either is fine) Wilson</a
+            >
+            and I really enjoy watching Lu or Luke's
+            <a
+              href="https://www.youtube.com/playlist?list=PL9uRa69RF-7wastqKWXT4d9F84BAzfVd4"
+              >SandPond Saga</a
+            >.
+          </p>
         </div>
-        <script src="canvas_library/Circle.js"></script>
-        <script src="canvas_library/Rectangle.js"></script>
-        <script src="banner.js"></script>
-    </body>
+        <p style="opacity: 0.5"><a href="life">See more stuff</a>.</p>
+      </div>
+
+      <div class="contentSection" id="myStuff">
+        <div class="contentSectionHeader">My stuff</div>
+        <div class="grid">
+          <p>
+            <a class="label" href="https://cactusmessenger.azurewebsites.net"
+              >Cactus Messenger</a
+            ><br />
+            A messenger I made using
+            <a
+              href="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor"
+              >Blazor</a
+            >.
+          </p>
+          <p>
+            <a class="label" href="https://esolangs.org/wiki/ndim">Ndim</a
+            ><br />
+            An n-dimensional esoteric programming language.
+          </p>
+          <p>
+            <a
+              class="label"
+              href="https://github.com/Schlafhase/Mandelbrot-fractal"
+              >Mandelbrot</a
+            ><br />
+            A program to explore the Mandelbrot set.
+          </p>
+          <p>
+            <a class="label" href="https://github.com/Schlafhase/brainfck-cs"
+              >Brainfuck</a
+            ><br />
+            A Brainfuck interpreter written in C#. This was my first C# Project.
+          </p>
+          <p>
+            <a class="label" href="https://github.com/Schlafhase/img2cat"
+              >Image to cat</a
+            ><br />
+            A python script that converts images into larger images made out of
+            little cat images.
+          </p>
+          <p>
+            <a class="label" href="https://github.com/Schlafhase/img2minecraft"
+              >Image to Minecraft</a
+            ><br />
+            A python script that converts images into images built out of
+            Minecraft blocks. It also outputs a Minecraft datapack with a
+            command to build the image.
+          </p>
+          <p>
+            <a class="label" href="https://scratch.mit.edu/users/Schlafhase"
+              >Scratch</a
+            ><br />
+            This is my scratch account. I used to be very active on Scratch but
+            I haven't been using it since 2021.
+          </p>
+        </div>
+        <p style="opacity: 0.5">
+          You can find most of my projects on
+          <a href="https://github.com/Schlafhase">Github</a>.
+        </p>
+      </div>
+
+      <div class="contentSection" id="contact">
+        <div class="contentSectionHeader">Contact</div>
+        <a href="keys">PGP Public Key</a>
+        <div class="grid">
+          <p>
+            <span class="label">Email</span><br />
+            <a
+              href="#"
+              class="cryptedmail"
+              data-name="schlafhase190"
+              data-domain="gmail"
+              data-tld="com"
+              onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;"
+            ></a>
+          </p>
+          <p>
+            <span class="label">2nd Email</span><br />
+            <a
+              href="#"
+              class="cryptedmail"
+              data-name="linus.schneeberg"
+              data-domain="gmail"
+              data-tld="com"
+              onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;"
+            ></a>
+          </p>
+          <p>
+            <span class="label">mastodon</span><br />
+            <a href="https://mastodon.social/@Schlafhase">@Schlafhase</a>
+          </p>
+          <p>
+            <span class="label">Instagram</span><br />
+            <a href="https://www.instagram.com/berdpond/">@berdpond</a>
+          </p>
+          <p>
+            <span class="label">Esolangs</span><br />
+            <a href="https://esolangs.org/wiki/User:Schlafhase"
+              >User:Schlafhase</a
+            >
+          </p>
+          <p>
+            <span class="label">Discord</span><br />
+            <a
+              style="text-decoration: underline; cursor: pointer"
+              onclick="navigator.clipboard.writeText('schlafhase');alert('Copied username to clipboard!');"
+              >@schlafhase</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="canvas_library/Circle.js"></script>
+    <script src="canvas_library/Rectangle.js"></script>
+    <script src="banner.js"></script>
+  </body>
 </html>
+

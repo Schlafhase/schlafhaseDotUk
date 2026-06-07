@@ -14,6 +14,7 @@ var colors = [
   "lightblue",
   "lime",
 ];
+
 var rects = [];
 for (var i = 0; i < 50; i++) {
   rects.push(

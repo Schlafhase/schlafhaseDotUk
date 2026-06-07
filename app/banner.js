@@ -4,7 +4,7 @@ banner.width = parseInt(banner.offsetWidth);
 banner.height = parseInt(banner.offsetHeight);
 
 var colors = ["green", "yellow", "magenta", "pink", "red", "orange", "blue", "lightblue", "lime"]
-var rects = [];
+vr rects = [];
 for (var i = 0; i<50;i++) {
     rects.push(new Circle((Math.random() * 500) + 50, Math.random()* parseInt(banner.offsetWidth), Math.random() * parseInt(banner.offsetHeight), colors[Math.round(Math.random()*colors.length)], Math.random()/2, Math.random()*2-1, Math.random()*2-1));
 }
